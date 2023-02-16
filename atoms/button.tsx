@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
+import styles from './button.module.css';
 
 const Button: NextPage<{ color: string; text: string }> = ({ color, text }) => {
   return (

@@ -25,7 +25,7 @@ $ yarn dev
 
 ```
 $ git clone https://github.com/trmti/MukimukiHealth.git
-$ npm i
+$ yarn
 ```
 
 ## ブランチの作成

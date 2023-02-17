@@ -1,4 +1,4 @@
-export type foods = {
+export type food = {
   // 主な栄養
   カロリー: number;
   タンパク質: number;
@@ -38,4 +38,24 @@ export type foods = {
   パントテン酸: number;
   ビオチン: number;
   ビタミンC: number;
+};
+
+export type foodDetail = {
+  name: string;
+  class: 'メイン' | '副菜' | '汁物' | '主食';
+  main: 'ご飯' | 'パン' | null;
+  url: string;
+  nutrition: food;
+};
+
+export type wannaEat = {
+  id: number;
+  name: string;
+  url: string;
+};
+
+export type ideal = {
+  id: number;
+  name: string;
+  url: string;
 };

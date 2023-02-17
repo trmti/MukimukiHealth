@@ -4,14 +4,9 @@
   width: 80vw;
 }
 
-.idealWrapper {
+.suggestWrapper {
   display: flex;
   justify-content: space-between;
   width: 100%;
   flex-wrap: wrap;
-}
-
-.idealWrapper div {
-  width: 400px;
-  height: 400px;
 }

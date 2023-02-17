@@ -263,7 +263,7 @@ export const kinpiragobou: food = {
   ビタミンC: 2,
 };
 
-export const foods: foodDetail[] = [
+export const todayFood: foodDetail[] = [
   {
     name: 'きんぴらごぼう',
     class: '副菜',
@@ -286,3 +286,5 @@ export const foods: foodDetail[] = [
     nutrition: sizasalad,
   },
 ];
+
+export const suggestFoods: foodDetail[][] = [todayFood, todayFood, todayFood];

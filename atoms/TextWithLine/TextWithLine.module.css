@@ -1,0 +1,24 @@
+.wrapper {
+  text-align: center;
+}
+
+.underLine {
+  font-size: 64px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.underLine:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -15px;
+  display: inline-block;
+  width: 80%;
+  height: 1px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: black;
+  border-radius: 2px;
+}

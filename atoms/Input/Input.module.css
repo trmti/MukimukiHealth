@@ -1,0 +1,16 @@
+.wrapper {
+  width: 400px;
+  font-size: 32px;
+  margin-bottom: 80px;
+}
+
+.wrapper p {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.wrapper input {
+  width: 100%;
+  height: 50px;
+  font-size: 24px;
+}

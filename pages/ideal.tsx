@@ -1,12 +1,28 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import styles from '../styles/ideal.module.css';
+import { useRouter } from 'next/router';
+import { ideals } from '../utils/testData';
 
 const Ideal: NextPage = () => {
+  const router = useRouter();
+
   return (
     <div className={styles.wrapper}>
-      <Image src="/rikishi.png" alt="力士" width={380} height={270} />
-      <h1>力士</h1>
+      <h1>あなたの理想の体型は？</h1>
+      <div className={styles.idealWrapper}>
+        {ideals.map((ideal) => (
+          <div
+            key={ideal.id}
+            onClick={() => {
+              router.push('/mypage');
+            }}
+          >
+            <Image src={ideal.url} alt={ideal.name} width={380} height={270} />
+            <h1>{ideal.name}</h1>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

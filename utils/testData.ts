@@ -1,4 +1,4 @@
-import { foods } from './types';
+import { foods, wannaEat, ideal } from './types';
 
 export const rikishiIdeal: foods = {
   カロリー: 2832,
@@ -40,3 +40,16 @@ export const rikishiIdeal: foods = {
   ビオチン: 111,
   ビタミンC: 84,
 };
+
+export const wannaEats: wannaEat[] = [
+  { name: '丼物', url: 'https://i.imgur.com/FzryyS8.png' },
+  { name: 'ドリア', url: 'https://i.imgur.com/ZzTo4tE.png' },
+  { name: 'ハンバーグ', url: 'https://i.imgur.com/gKBL6ZT.png' },
+];
+
+export const ideals: ideal[] = [
+  { id: 1, name: '力士', url: 'https://i.imgur.com/Vioy5WK.png' },
+  { id: 2, name: 'ガチムチ', url: 'https://i.imgur.com/fbRYP6E.png' },
+  { id: 3, name: '普通', url: 'https://i.imgur.com/4BatJ2M.png' },
+  { id: 4, name: 'モデル', url: 'https://i.imgur.com/Zx1F9qD.png' },
+];

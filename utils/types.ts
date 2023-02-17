@@ -39,3 +39,14 @@ export type foods = {
   ビオチン: number;
   ビタミンC: number;
 };
+
+export type wannaEat = {
+  name: string;
+  url: string;
+};
+
+export type ideal = {
+  id: number;
+  name: string;
+  url: string;
+};

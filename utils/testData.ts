@@ -1,6 +1,6 @@
-import { foods } from './types';
+import { food, wannaEat, ideal, foodDetail } from './types';
 
-export const rikishiIdeal: foods = {
+export const rikishiIdeal: food = {
   カロリー: 2832,
   タンパク質: 91,
   脂質: 240,
@@ -41,8 +41,20 @@ export const rikishiIdeal: foods = {
   ビタミンC: 84,
 };
 
+export const wannaEats: wannaEat[] = [
+  { id: 1, name: '丼物', url: 'https://i.imgur.com/FzryyS8.png' },
+  { id: 2, name: 'ドリア', url: 'https://i.imgur.com/ZzTo4tE.png' },
+  { id: 3, name: 'ハンバーグ', url: 'https://i.imgur.com/gKBL6ZT.png' },
+];
+
+export const ideals: ideal[] = [
+  { id: 1, name: '力士', url: 'https://i.imgur.com/Vioy5WK.png' },
+  { id: 2, name: 'ガチムチ', url: 'https://i.imgur.com/fbRYP6E.png' },
+  { id: 3, name: '普通', url: 'https://i.imgur.com/4BatJ2M.png' },
+  { id: 4, name: 'モデル', url: 'https://i.imgur.com/Zx1F9qD.png' },
+];
 // ポークカレー
-export const pokucaree: foods = {
+export const pokucaree: food = {
   カロリー: 764,
   タンパク質: 14.1,
   脂質: 28.9,
@@ -84,7 +96,7 @@ export const pokucaree: foods = {
 };
 
 //オムライス
-export const omuraisu : foods = {
+export const omuraisu: food = {
   カロリー: 785,
   タンパク質: 29.5,
   脂質: 43.2,
@@ -126,7 +138,7 @@ export const omuraisu : foods = {
 };
 
 //醤油ラーメン
-export const syouyuranmen: foods = {
+export const syouyuranmen: food = {
   カロリー: 434,
   タンパク質: 20.4,
   脂質: 8.8,
@@ -168,7 +180,7 @@ export const syouyuranmen: foods = {
 };
 
 //シーザーサラダ
-export const sizasalad: foods = {
+export const sizasalad: food = {
   カロリー: 236,
   タンパク質: 7.6,
   脂質: 20.0,
@@ -198,10 +210,10 @@ export const sizasalad: foods = {
   ビタミンD: 0.7,
   ビタミンE: 2.7,
   ビタミンK: 72,
-  ビタミンB1: 0.10,
+  ビタミンB1: 0.1,
   ビタミンB2: 0.19,
   ナイアシン: 2.7,
-  ビタミンB6: 0.10,
+  ビタミンB6: 0.1,
   ビタミンB12: 0.8,
   葉酸: 76,
   パントテン酸: 0.56,
@@ -210,7 +222,7 @@ export const sizasalad: foods = {
 };
 
 //きんぴらごぼう
-export const kinpiragobou: foods = {
+export const kinpiragobou: food = {
   カロリー: 95,
   タンパク質: 1.4,
   脂質: 3.0,
@@ -250,3 +262,29 @@ export const kinpiragobou: foods = {
   ビオチン: 2.4,
   ビタミンC: 2,
 };
+
+export const todayFood: foodDetail[] = [
+  {
+    name: 'きんぴらごぼう',
+    class: '副菜',
+    main: null,
+    url: 'https://i.imgur.com/n5fIcTI.jpg',
+    nutrition: kinpiragobou,
+  },
+  {
+    name: 'ポークカレー',
+    class: 'メイン',
+    main: 'ご飯',
+    url: 'https://i.imgur.com/iB6gm9H.jpg',
+    nutrition: pokucaree,
+  },
+  {
+    name: 'シーザーサラダ',
+    class: '副菜',
+    main: null,
+    url: 'https://i.imgur.com/H6olvje.jpg',
+    nutrition: sizasalad,
+  },
+];
+
+export const suggestFoods: foodDetail[][] = [todayFood, todayFood, todayFood];

@@ -1,6 +1,6 @@
-import { foods, wannaEat, ideal } from './types';
+import { food, wannaEat, ideal } from './types';
 
-export const rikishiIdeal: foods = {
+export const rikishiIdeal: food = {
   カロリー: 2832,
   タンパク質: 91,
   脂質: 240,
@@ -54,7 +54,7 @@ export const ideals: ideal[] = [
   { id: 4, name: 'モデル', url: 'https://i.imgur.com/Zx1F9qD.png' },
 ];
 // ポークカレー
-export const pokucaree: foods = {
+export const pokucaree: food = {
   カロリー: 764,
   タンパク質: 14.1,
   脂質: 28.9,
@@ -96,7 +96,7 @@ export const pokucaree: foods = {
 };
 
 //オムライス
-export const omuraisu: foods = {
+export const omuraisu: food = {
   カロリー: 785,
   タンパク質: 29.5,
   脂質: 43.2,
@@ -138,7 +138,7 @@ export const omuraisu: foods = {
 };
 
 //醤油ラーメン
-export const syouyuranmen: foods = {
+export const syouyuranmen: food = {
   カロリー: 434,
   タンパク質: 20.4,
   脂質: 8.8,
@@ -180,7 +180,7 @@ export const syouyuranmen: foods = {
 };
 
 //シーザーサラダ
-export const sizasalad: foods = {
+export const sizasalad: food = {
   カロリー: 236,
   タンパク質: 7.6,
   脂質: 20.0,
@@ -222,7 +222,7 @@ export const sizasalad: foods = {
 };
 
 //きんぴらごぼう
-export const kinpiragobou: foods = {
+export const kinpiragobou: food = {
   カロリー: 95,
   タンパク質: 1.4,
   脂質: 3.0,

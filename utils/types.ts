@@ -1,4 +1,4 @@
-export type foods = {
+export type food = {
   // 主な栄養
   カロリー: number;
   タンパク質: number;

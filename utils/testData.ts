@@ -1,4 +1,4 @@
-import { food, wannaEat, ideal } from './types';
+import { food, wannaEat, ideal, foodDetail } from './types';
 
 export const rikishiIdeal: food = {
   カロリー: 2832,
@@ -42,9 +42,9 @@ export const rikishiIdeal: food = {
 };
 
 export const wannaEats: wannaEat[] = [
-  { name: '丼物', url: 'https://i.imgur.com/FzryyS8.png' },
-  { name: 'ドリア', url: 'https://i.imgur.com/ZzTo4tE.png' },
-  { name: 'ハンバーグ', url: 'https://i.imgur.com/gKBL6ZT.png' },
+  { id: 1, name: '丼物', url: 'https://i.imgur.com/FzryyS8.png' },
+  { id: 2, name: 'ドリア', url: 'https://i.imgur.com/ZzTo4tE.png' },
+  { id: 3, name: 'ハンバーグ', url: 'https://i.imgur.com/gKBL6ZT.png' },
 ];
 
 export const ideals: ideal[] = [
@@ -262,3 +262,27 @@ export const kinpiragobou: food = {
   ビオチン: 2.4,
   ビタミンC: 2,
 };
+
+export const foods: foodDetail[] = [
+  {
+    name: 'きんぴらごぼう',
+    class: '副菜',
+    main: null,
+    url: 'https://i.imgur.com/n5fIcTI.jpg',
+    nutrition: kinpiragobou,
+  },
+  {
+    name: 'ポークカレー',
+    class: 'メイン',
+    main: 'ご飯',
+    url: 'https://i.imgur.com/iB6gm9H.jpg',
+    nutrition: pokucaree,
+  },
+  {
+    name: 'シーザーサラダ',
+    class: '副菜',
+    main: null,
+    url: 'https://i.imgur.com/H6olvje.jpg',
+    nutrition: sizasalad,
+  },
+];

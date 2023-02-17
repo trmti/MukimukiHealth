@@ -15,7 +15,7 @@ const WannaEat: NextPage = () => {
           <div
             key={index}
             onClick={() => {
-              router.push('/menuSuggest');
+              router.push(`/menuSuggest/${wannaEat.id}`);
             }}
           >
             <Image src={wannaEat.url} alt="力士" width={200} height={200} />

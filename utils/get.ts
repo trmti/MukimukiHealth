@@ -1,10 +1,32 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { db } from './firebase';
 import { todayFood, suggestFoods } from './testData';
-import { foodDetail, detailWithId } from './types';
+import { foodDetail, detailWithId, detailWithDate, User } from './types';
 
-export async function getTodayFood(userId: number): Promise<foodDetail[]> {
-  return todayFood;
+export async function getUser(userId: string): Promise<User> {
+  const querySnapshot = await getDoc(doc(db, 'User', userId));
+  const res = querySnapshot.data() as User;
+  return res;
+}
+
+export async function newData(ids: string[], collectionName: string) {
+  const res = await Promise.all(
+    ids.map(async (id) => {
+      const newDoc = await getDoc(doc(db, collectionName, id));
+      return newDoc.data();
+    })
+  );
+
+  return res;
+}
+
+export async function getTodayFood(userId: string): Promise<detailWithDate> {
+  const user = await getUser(userId);
+  const date = user['次のご飯']['日付'];
+  const ids = user['次のご飯']['ご飯'].map((food) => food.id) as string[];
+  const res = (await newData(ids, 'ご飯')) as foodDetail[];
+  console.log(res);
+  return { 日付: date, ご飯: res };
 }
 
 export async function getSuggests(

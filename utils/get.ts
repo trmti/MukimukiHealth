@@ -23,6 +23,7 @@ export async function newData(ids: string[], collectionName: string) {
 export async function getTodayFood(userId: string): Promise<detailWithDate> {
   const user = await getUser(userId);
   const date = user['次のご飯']['日付'];
+  // @ts-ignore
   const ids = user['次のご飯']['ご飯'].map((food) => food.id) as string[];
   const res = (await newData(ids, 'ご飯')) as foodDetail[];
   return { 日付: date, ご飯: res };

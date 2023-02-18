@@ -1,5 +1,9 @@
-import { doc, updateDoc, deleteField } from 'firebase/firestore';
+import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
+
+export async function createNewUser(email: string) {
+  await setDoc(doc(db, 'User', email), {}, { merge: true });
+}
 
 export async function deleteTodayFood(userId: string) {
   const ref = doc(db, 'User', userId, '次のご飯');

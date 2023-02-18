@@ -2,12 +2,19 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { ReactNode, useState, useEffect } from 'react';
+
 import styles from '../../styles/menuSuggest.module.css';
 
 import { food, foodDetail } from '../../utils/types';
 import { getSuggests } from '../../utils/get';
+import { setTodayFood } from '../../utils/set';
+
+import { useAuthContext } from '../../utils/AuthContext';
+import Button from '../../atoms/Button';
 
 const MenuSuggest: NextPage = () => {
+  const { user } = useAuthContext();
+
   const router = useRouter();
   const [suggestFoods, setSuggestFoods] = useState<foodDetail[][]>();
 
@@ -16,6 +23,13 @@ const MenuSuggest: NextPage = () => {
   async function updateSuggest() {
     const suggests = await getSuggests(1, food_id);
     setSuggestFoods(suggests);
+  }
+
+  async function onClick() {
+    if (user?.email) {
+      await setTodayFood(user.email);
+      router.push('/mypage2');
+    }
   }
   useEffect(() => {
     updateSuggest();
@@ -58,6 +72,7 @@ const MenuSuggest: NextPage = () => {
             </div>
           ))}
         </div>
+        <Button text="これにする" onClick={onClick} />
       </div>
     );
   } else {

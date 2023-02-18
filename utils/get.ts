@@ -25,7 +25,6 @@ export async function getTodayFood(userId: string): Promise<detailWithDate> {
   const date = user['次のご飯']['日付'];
   const ids = user['次のご飯']['ご飯'].map((food) => food.id) as string[];
   const res = (await newData(ids, 'ご飯')) as foodDetail[];
-  console.log(res);
   return { 日付: date, ご飯: res };
 }
 

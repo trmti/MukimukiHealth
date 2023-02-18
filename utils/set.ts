@@ -1,10 +1,6 @@
-export async function setSuggest(
-  foodIds: number[],
-  userId: number
-): Promise<boolean> {
-  return true;
-}
+import { doc, updateDoc, deleteField } from 'firebase/firestore';
+import { db } from './firebase';
 
-export async function setIdeal(idealId: number): Promise<boolean> {
-  return true;
+export async function deleteTodayFood(userId: string) {
+  const ref = doc(db, 'User', userId, '次のご飯');
 }

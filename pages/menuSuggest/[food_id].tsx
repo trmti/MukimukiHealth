@@ -27,6 +27,7 @@ const MenuSuggest: NextPage = () => {
 
   async function onClick() {
     if (user?.email) {
+      // こんなコーヒーは嫌だ。　どんなコーヒー？
       await setTodayFood(user.email);
       router.push('/mypage2');
     }

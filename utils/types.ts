@@ -1,4 +1,4 @@
-import firestore from 'firebase/firestore';
+import firestore from "firebase/firestore";
 
 export type food = {
   // 主な栄養
@@ -79,4 +79,9 @@ export type ideal = {
   id: number;
   name: string;
   url: string;
+};
+
+export type record = {
+  日付: firestore.Timestamp;
+  食べたもの: foodDetail[];
 };

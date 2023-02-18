@@ -1,3 +1,5 @@
+import firestore from 'firebase/firestore';
+
 export type food = {
   // 主な栄養
   カロリー?: number;
@@ -40,6 +42,15 @@ export type food = {
   ビタミンC?: number;
 };
 
+export type User = {
+  次のご飯: detailWithDate;
+  理想体型: food;
+  食事履歴: {
+    日付: firestore.Timestamp;
+    食べたもの: foodDetail;
+  };
+};
+
 export type foodDetail = {
   名前: string;
   分類: 'メイン' | '副菜' | '汁物' | '主食';
@@ -51,6 +62,11 @@ export type foodDetail = {
 export type detailWithId = {
   id: string;
   detail: foodDetail;
+};
+
+export type detailWithDate = {
+  日付: firestore.Timestamp;
+  ご飯: foodDetail[];
 };
 
 export type wannaEat = {

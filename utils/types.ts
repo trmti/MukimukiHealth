@@ -59,3 +59,8 @@ export type ideal = {
   name: string;
   url: string;
 };
+
+export type record = {
+  date: string;
+  foodDetail: foodDetail[];
+};

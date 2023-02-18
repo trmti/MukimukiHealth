@@ -5,32 +5,41 @@ import { useRouter } from 'next/router';
 
 import { useState, useEffect } from 'react';
 import { getTodayFood } from '../utils/get';
+import { deleteTodayFood } from '../utils/set';
 import { detailWithDate, food } from '../utils/types';
+
+import { useAuthContext } from '../utils/AuthContext';
 
 import Button from '../atoms/Button';
 
-const testUserId = 'Nw2N2cNhW2WaaVSgEcCZ';
-
 const MyPage2: NextPage = () => {
+  const { user } = useAuthContext();
+
   const [todayFood, setTodayFood] = useState<detailWithDate>();
   const router = useRouter();
 
   async function onLoad() {
-    const res = await getTodayFood(testUserId);
-    if (res) {
-      setTodayFood(res);
-    } else {
-      router.push('/mypage');
+    if (user?.email) {
+      const res = await getTodayFood(user.email);
+      if (res) {
+        setTodayFood(res);
+      } else {
+        router.push('/mypage');
+      }
     }
   }
 
   async function onClick() {
-    router.push('/mypage');
+    if (user?.email) {
+      await deleteTodayFood(user.email);
+
+      router.push('/mypage');
+    }
   }
 
   useEffect(() => {
     onLoad();
-  }, []);
+  }, [user]);
 
   return (
     <>

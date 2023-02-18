@@ -11,3 +11,19 @@ export async function deleteTodayFood(userId: string) {
     次のご飯: deleteField(),
   });
 }
+
+// テスト用の関数
+export async function setTodayFood(userId: string) {
+  const ref = doc(db, 'User', userId);
+
+  await updateDoc(ref, {
+    次のご飯: {
+      日付: Date.now(),
+      ご飯: [
+        doc(db, 'ご飯', 'すし'),
+        doc(db, 'ご飯', 'とんかつ'),
+        doc(db, 'ご飯', 'オムライス'),
+      ],
+    },
+  });
+}

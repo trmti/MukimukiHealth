@@ -31,7 +31,7 @@ export async function getTodayFood(
   userId: string
 ): Promise<detailWithDate | null> {
   const user = await getUser(userId);
-  if (user['次のご飯']) {
+  if (user && user['次のご飯']) {
     const date = user['次のご飯']['日付'];
     const ids = user['次のご飯']['ご飯'].map((food) => food.id);
     const res = (await newData(ids, 'ご飯')) as foodDetail[];

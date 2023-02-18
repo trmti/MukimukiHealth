@@ -1,4 +1,4 @@
-import firestore from "firebase/firestore";
+import firestore from 'firebase/firestore';
 
 export type food = {
   // 主な栄養
@@ -43,7 +43,10 @@ export type food = {
 };
 
 export type User = {
-  次のご飯: detailWithDate;
+  体脂肪率: number;
+  体重: number;
+  身長: number;
+  次のご飯: detailWithRef;
   理想体型: food;
   食事履歴: {
     日付: firestore.Timestamp;
@@ -62,6 +65,11 @@ export type foodDetail = {
 export type detailWithId = {
   id: string;
   detail: foodDetail;
+};
+
+export type detailWithRef = {
+  日付: firestore.Timestamp;
+  ご飯: { id: string }[];
 };
 
 export type detailWithDate = {

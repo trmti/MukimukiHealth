@@ -6,5 +6,8 @@ export async function createNewUser(email: string) {
 }
 
 export async function deleteTodayFood(userId: string) {
-  const ref = doc(db, 'User', userId, '次のご飯');
+  const ref = doc(db, 'User', userId);
+  await updateDoc(ref, {
+    次のご飯: deleteField(),
+  });
 }

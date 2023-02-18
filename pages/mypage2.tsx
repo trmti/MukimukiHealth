@@ -8,20 +8,24 @@ import { getTodayFood } from '../utils/get';
 import { detailWithDate, food } from '../utils/types';
 
 import Button from '../atoms/Button';
+import Loading from '../atoms/Loading';
 
 const testUserId = 'Nw2N2cNhW2WaaVSgEcCZ';
 
 const MyPage2: NextPage = () => {
   const [todayFood, setTodayFood] = useState<detailWithDate>();
+  const [isLoading, setLoading] = useState(false);
   const router = useRouter();
 
   async function onLoad() {
+    setLoading(true);
     const res = await getTodayFood(testUserId);
     if (res) {
       setTodayFood(res);
     } else {
       router.push('/mypage');
     }
+    setLoading(false);
   }
 
   async function onClick() {
@@ -35,7 +39,7 @@ const MyPage2: NextPage = () => {
   return (
     <>
       <h1>今日のご飯はこれ！</h1>
-      {todayFood &&
+      {!isLoading ? todayFood &&
         todayFood['ご飯'].map((food, index) => {
           return (
             <div key={index}>
@@ -54,7 +58,7 @@ const MyPage2: NextPage = () => {
               })()}
             </div>
           );
-        })}
+        }) : <Loading />}
 
       <Button text="食べた！" color="#3F8757" onClick={onClick} />
     </>

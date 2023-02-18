@@ -265,25 +265,25 @@ export const kinpiragobou: food = {
 
 export const todayFood: foodDetail[] = [
   {
-    name: 'きんぴらごぼう',
-    class: '副菜',
-    main: null,
-    url: 'https://i.imgur.com/n5fIcTI.jpg',
-    nutrition: kinpiragobou,
+    名前: 'きんぴらごぼう',
+    分類: '副菜',
+    メイン: null,
+    URL: 'https://i.imgur.com/n5fIcTI.jpg',
+    栄養: kinpiragobou,
   },
   {
-    name: 'ポークカレー',
-    class: 'メイン',
-    main: 'ご飯',
-    url: 'https://i.imgur.com/iB6gm9H.jpg',
-    nutrition: pokucaree,
+    名前: 'ポークカレー',
+    分類: 'メイン',
+    メイン: 'ご飯',
+    URL: 'https://i.imgur.com/iB6gm9H.jpg',
+    栄養: pokucaree,
   },
   {
-    name: 'シーザーサラダ',
-    class: '副菜',
-    main: null,
-    url: 'https://i.imgur.com/H6olvje.jpg',
-    nutrition: sizasalad,
+    名前: 'シーザーサラダ',
+    分類: '副菜',
+    メイン: null,
+    URL: 'https://i.imgur.com/H6olvje.jpg',
+    栄養: sizasalad,
   },
 ];
 

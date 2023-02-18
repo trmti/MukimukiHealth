@@ -1,8 +1,8 @@
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
 import { todayFood, suggestFoods } from './testData';
-import { foodDetail, record } from './types';
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { app } from './firebase';
-import { useEffect } from 'react';
+import { detailWithId, foodDetail, record } from './types';
+
 
 export async function getTodayFood(userId: number): Promise<foodDetail[]> {
   return todayFood;
@@ -10,17 +10,28 @@ export async function getTodayFood(userId: number): Promise<foodDetail[]> {
 
 export async function getSuggests(
   userId: number,
-  foodId: number
+  foodId: string
 ): Promise<foodDetail[][]> {
   return suggestFoods;
+}
+
+export async function getAllFoods() {
+  const querySnapshot = await getDocs(collection(db, 'ご飯'));
+  const res: detailWithId[] = [];
+  querySnapshot.forEach((doc) => {
+    const detail = doc.data() as foodDetail;
+    res.push({ id: doc.id, detail: detail });
+  });
+
+  return res;
 }
 
 export async function getIdeal(userId: number): Promise<number> {
   return 1;
 }
 
-export async function getFoodRecord(userId: number): Promise<record[]> {
-  const docRef = doc(getFirestore(app), "User", "Nw2N2cNhW2WaaVSgEcCZ");
+export async function getFoodRecords(userId: number): Promise<record[]> {
+  const docRef = doc(db, "User", "Nw2N2cNhW2WaaVSgEcCZ");
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {

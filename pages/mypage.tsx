@@ -30,9 +30,11 @@ const MyPage: NextPage = () => {
         </button>
         <h1>食事履歴</h1>
         <div>
-          {foodRecords.map((foodRecord, index) => (
+          {foodRecords.map((foodRecord) => (
             <div>
-              {index}
+              {foodRecord.map(({ date, eaten }) => (
+                toString(date)
+              ))}
             </div>
           ))}
         </div>

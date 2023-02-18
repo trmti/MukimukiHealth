@@ -16,16 +16,10 @@ const MyPage: NextPage = () => {
   async function updateFoodRecord() {
     setIsLoading(true);
     if (user?.email) {
-      const todayFoods = await getTodayFood(user.email);
-      if (todayFoods) {
-        alert('今日のご飯のページに移動');
-        router.push('/mypage2');
-        return;
-      }
       const foodRecords = await getFoodRecords(user.email);
       setFoodRecords(foodRecords);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
   useEffect(() => {
     updateFoodRecord();

@@ -1,4 +1,4 @@
-import firestore from "firebase/firestore";
+import firestore from 'firebase/firestore';
 
 export type food = {
   // 主な栄養
@@ -92,14 +92,14 @@ export type User = {
   理想体型: food;
   食事履歴: {
     日付: firestore.Timestamp;
-    食べたもの: foodDetail;
-  };
+    食べたもの: { id: string }[];
+  }[];
 };
 
 export type foodDetail = {
   名前: string;
-  分類: "メイン" | "副菜" | "汁物" | "主食";
-  メイン: "ご飯" | "パン" | null;
+  分類: 'メイン' | '副菜' | '汁物' | '主食';
+  メイン: 'ご飯' | 'パン' | null;
   URL: string;
   栄養: food;
 };
@@ -125,9 +125,11 @@ export type wannaEat = {
   url: string;
 };
 
+export type idealNames = '力士' | 'モデル' | 'ガチムチ' | '普通';
+
 export type ideal = {
   id: number;
-  name: string;
+  name: idealNames;
   url: string;
 };
 

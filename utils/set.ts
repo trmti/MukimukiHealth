@@ -2,13 +2,46 @@ import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 export async function createNewUser(email: string) {
-  await setDoc(doc(db, 'User', email), {}, { merge: true });
+  await setDoc(doc(db, 'User', email), {});
 }
 
 export async function deleteTodayFood(userId: string) {
   const ref = doc(db, 'User', userId);
   await updateDoc(ref, {
     次のご飯: deleteField(),
+  });
+}
+
+export async function setUserData(
+  userId: string,
+  weight: number,
+  height: number,
+  percentage: number
+) {
+  await updateDoc(doc(db, 'User', userId), {
+    体重: weight,
+    身長: height,
+    体脂肪率: percentage,
+  });
+}
+
+export async function setGoals(
+  userId: string,
+  calorie: number,
+  protein: number,
+  lipid: number,
+  suger: number,
+  carbohydrates: number
+) {
+  const ref = doc(db, 'User', userId);
+  await updateDoc(ref, {
+    目標栄養素: {
+      カロリー: calorie,
+      タンパク質: protein,
+      脂質: lipid,
+      糖質: suger,
+      炭水化物: carbohydrates,
+    },
   });
 }
 

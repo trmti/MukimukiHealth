@@ -1,4 +1,4 @@
-import { food, wannaEat, ideal, foodDetail } from './types';
+import { food, wannaEat, ideal, foodDetail, food_tanni } from "./types";
 
 export const rikishiIdeal: food = {
   カロリー: 2832,
@@ -41,17 +41,58 @@ export const rikishiIdeal: food = {
   ビタミンC: 84,
 };
 
+export const food_unit: food_tanni = {
+  カロリー: "kcal",
+  タンパク質: "g",
+  脂質: "g",
+  炭水化物: "g",
+  糖質: "g",
+  食物繊維: "g",
+
+  // ミネラル
+  ナトリウム: "mg",
+  食塩相当量: "g",
+  カリウム: "mg",
+  カルシウム: "mg",
+  マグネシウム: "mg",
+  リン: "mg",
+  鉄: "mg",
+  亜鉛: "mg",
+  銅: "mg",
+  マンガン: "mg",
+  ヨウ素: "μg",
+  セレン: "μg",
+  クロム: "μg",
+  モリブデン: "μg",
+
+  // ビタミン
+  ビタミンA: "μg",
+  betaカロテン: "μg",
+  ビタミンD: "μg",
+  ビタミンE: "mg",
+  ビタミンK: "μg",
+  ビタミンB1: "mg",
+  ビタミンB2: "mg",
+  ナイアシン: "mg",
+  ビタミンB6: "mg",
+  ビタミンB12: "μg",
+  葉酸: "μg",
+  パントテン酸: "mg",
+  ビオチン: "μg",
+  ビタミンC: "mg",
+};
+
 export const wannaEats: wannaEat[] = [
-  { id: 1, name: '丼物', url: 'https://i.imgur.com/FzryyS8.png' },
-  { id: 2, name: 'ドリア', url: 'https://i.imgur.com/ZzTo4tE.png' },
-  { id: 3, name: 'ハンバーグ', url: 'https://i.imgur.com/gKBL6ZT.png' },
+  { id: 1, name: "丼物", url: "https://i.imgur.com/FzryyS8.png" },
+  { id: 2, name: "ドリア", url: "https://i.imgur.com/ZzTo4tE.png" },
+  { id: 3, name: "ハンバーグ", url: "https://i.imgur.com/gKBL6ZT.png" },
 ];
 
 export const ideals: ideal[] = [
-  { id: 1, name: '力士', url: 'https://i.imgur.com/Vioy5WK.png' },
-  { id: 2, name: 'ガチムチ', url: 'https://i.imgur.com/fbRYP6E.png' },
-  { id: 3, name: '普通', url: 'https://i.imgur.com/4BatJ2M.png' },
-  { id: 4, name: 'モデル', url: 'https://i.imgur.com/Zx1F9qD.png' },
+  { id: 1, name: "力士", url: "https://i.imgur.com/Vioy5WK.png" },
+  { id: 2, name: "ガチムチ", url: "https://i.imgur.com/fbRYP6E.png" },
+  { id: 3, name: "普通", url: "https://i.imgur.com/4BatJ2M.png" },
+  { id: 4, name: "モデル", url: "https://i.imgur.com/Zx1F9qD.png" },
 ];
 // ポークカレー
 export const pokucaree: food = {
@@ -265,24 +306,24 @@ export const kinpiragobou: food = {
 
 export const todayFood: foodDetail[] = [
   {
-    名前: 'きんぴらごぼう',
-    分類: '副菜',
+    名前: "きんぴらごぼう",
+    分類: "副菜",
     メイン: null,
-    URL: 'https://i.imgur.com/n5fIcTI.jpg',
+    URL: "https://i.imgur.com/n5fIcTI.jpg",
     栄養: kinpiragobou,
   },
   {
-    名前: 'ポークカレー',
-    分類: 'メイン',
-    メイン: 'ご飯',
-    URL: 'https://i.imgur.com/iB6gm9H.jpg',
+    名前: "ポークカレー",
+    分類: "メイン",
+    メイン: "ご飯",
+    URL: "https://i.imgur.com/iB6gm9H.jpg",
     栄養: pokucaree,
   },
   {
-    名前: 'シーザーサラダ',
-    分類: '副菜',
+    名前: "シーザーサラダ",
+    分類: "副菜",
     メイン: null,
-    URL: 'https://i.imgur.com/H6olvje.jpg',
+    URL: "https://i.imgur.com/H6olvje.jpg",
     栄養: sizasalad,
   },
 ];

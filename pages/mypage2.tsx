@@ -61,11 +61,12 @@ const MyPage2: NextPage = () => {
   const { user } = useAuthContext();
 
   const [todayFood, setTodayFood] = useState<detailWithDate>();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [food_index, setIndex] = useState<number>(0);
 
   async function onLoad() {
+    setIsLoading(true);
     const res = await getTodayFood(testUserId);
     if (user?.email) {
       const res = await getTodayFood(user.email);
@@ -75,6 +76,7 @@ const MyPage2: NextPage = () => {
         router.push("/mypage");
       }
     }
+    setIsLoading(false);
   }
 
   async function onClick() {
@@ -104,9 +106,7 @@ const MyPage2: NextPage = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
     onLoad();
-    setLoading(false)
   }, [user]);
 
   if (todayFood != undefined && !isLoading) {

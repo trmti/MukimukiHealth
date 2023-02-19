@@ -11,13 +11,14 @@ import { setTodayFood } from '../../utils/set';
 
 import { useAuthContext } from '../../utils/AuthContext';
 import Button from '../../atoms/Button';
+import Loading from '../../atoms/Loading';
 
 const MenuSuggest: NextPage = () => {
   const { user } = useAuthContext();
 
   const router = useRouter();
   const [suggestFoods, setSuggestFoods] = useState<foodDetail[][]>();
-
+  const [isLoading, setIsLoading] = useState(false);
   const { food_id } = router.query as { food_id: string };
 
   async function updateSuggest() {
@@ -77,7 +78,7 @@ const MenuSuggest: NextPage = () => {
       </div>
     );
   } else {
-    return <p>loading...</p>;
+    return <Loading />;
   }
 };
 

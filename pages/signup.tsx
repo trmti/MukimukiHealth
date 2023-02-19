@@ -8,6 +8,7 @@ import SignUpForm from '../moleculs/SignUpForm/index';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useAuthContext } from '../utils/AuthContext';
 import { app } from '../utils/firebase';
+import { createNewUser } from '../utils/set';
 
 const Signup: NextPage = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const Signup: NextPage = () => {
       });
       if (res) {
         alert('登録!');
+        await createNewUser(email);
         router.push('/mypage');
       }
     }

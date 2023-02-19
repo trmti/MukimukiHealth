@@ -1,10 +1,79 @@
 .wrapper {
   text-align: center;
-  margin: 50px auto 0 auto;
+  margin: 70px auto 0 auto;
   width: 80vw;
 }
 
 .foodsWrapper {
   display: flex;
-  justify-content: space-between;
+  margin: 200px auto 30px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.tabetaimono {
+  font-family: "MS PMincho";
+  color: #080808;
+  font-size: 70px !important;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+    -1px -1px 0 #091011;
+}
+
+.foodname {
+  font-family: "MS PMincho";
+  background: linear-gradient(transparent 60%, #ffff66 60%);
+}
+
+.graphy {
+  padding: 2px;
+  border: 5px solid #e8bf85;
+  box-shadow: 1px 1px 3px #999;
+}
+
+.border1 {
+  position: absolute;
+  width: 1536px;
+  height: 0px;
+  left: 0px;
+  right: 0px;
+  top: 10px;
+  border: 3px solid #ffff66;
+}
+
+.border2 {
+  position: absolute;
+  width: 1536px;
+  height: 0px;
+  left: 0px;
+  right: 0px;
+  top: 196px;
+  border: 3px solid #ffff66;
+}
+
+.left {
+  font-size: 77px;
+  position: absolute;
+  border: 2px solid #000000;
+  background-color: white;
+  transform: rotate(270deg);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  left: 26px;
+  top: 416px;
+  font-weight: 100;
+}
+
+.right {
+  font-size: 77px;
+  position: absolute;
+  border: 2px solid #000000;
+  background-color: white;
+  transform: rotate(90deg);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  right: 26px;
+  top: 416px;
+  font-weight: 100;
 }

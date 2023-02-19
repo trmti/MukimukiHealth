@@ -75,9 +75,7 @@ export async function getFoodRecords(userId: string): Promise<record[]> {
         // @ts-ignore
         const ids = foodRecord['食べたもの'].map((food) => food.id) as string[];
         const res = (await newData(ids, 'ご飯')) as foodDetail[];
-        // const date = foodRecord["日付"].toDate().toLocaleString('ja-JP').split(" ")[0]
         const date = foodRecord['日付'] as firestore.Timestamp;
-        // console.log(r)
         r.push({ 日付: date, 食べたもの: res });
       })
     );

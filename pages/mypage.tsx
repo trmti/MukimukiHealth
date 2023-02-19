@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getFoodRecords, getTodayFood } from '../utils/get';
 import { record } from '../utils/types';
 import Image from 'next/image';
+import Loading from '../atoms/Loading';
 
 import { useAuthContext } from '../utils/AuthContext';
 
@@ -11,19 +12,20 @@ const MyPage: NextPage = () => {
   const { user } = useAuthContext();
   const router = useRouter();
   const [foodRecords, setFoodRecords] = useState<record[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function updateFoodRecord() {
-    setIsLoading(true);
     if (user?.email) {
+      console.log((user.email))
       const foodRecords = await getFoodRecords(user.email);
       setFoodRecords(foodRecords);
-      setIsLoading(false);
     }
   }
   useEffect(() => {
+    setIsLoading(true);
     updateFoodRecord();
-  }, [user]);
+    setIsLoading(false);
+  }, [user])
 
   return (
     <div>
@@ -39,7 +41,6 @@ const MyPage: NextPage = () => {
       <div>
         {!isLoading && foodRecords.length !== 0 ? (
           foodRecords.map((foodRecord, index) => {
-            console.log(foodRecord);
             return (
               <div key={index}>
                 <h1>
@@ -65,11 +66,11 @@ const MyPage: NextPage = () => {
             );
           })
         ) : (
-          <p>loading...</p>
+          <Loading />
         )}
       </div>
     </div>
   );
-};
+}
 
 export default MyPage;

@@ -13,6 +13,7 @@ import { deleteTodayFood } from "../utils/set";
 import { useAuthContext } from "../utils/AuthContext";
 
 import Button from "../atoms/Button";
+import Loading from '../atoms/Loading';
 
 const testUserId = "Nw2N2cNhW2WaaVSgEcCZ";
 export const food_unit: food_tanni = {
@@ -60,6 +61,7 @@ const MyPage2: NextPage = () => {
   const { user } = useAuthContext();
 
   const [todayFood, setTodayFood] = useState<detailWithDate>();
+  const [isLoading, setLoading] = useState(false);
   const router = useRouter();
   const [food_index, setIndex] = useState<number>(0);
 
@@ -102,10 +104,12 @@ const MyPage2: NextPage = () => {
   }
 
   useEffect(() => {
+    setLoading(true)
     onLoad();
+    setLoading(false)
   }, [user]);
 
-  if (todayFood != undefined) {
+  if (todayFood != undefined && !isLoading) {
     return (
       <>
         <h1 className={styles.kyougohan}>今日のご飯はこれ！</h1>
@@ -156,38 +160,8 @@ const MyPage2: NextPage = () => {
       </>
     );
   } else {
-    return <></>;
+    return <Loading />;
   }
-  // return (
-  //   <>
-  //     <h1 className={styles.kyougohan}>今日のご飯はこれ！</h1>
-  //           <div className={styles.fooddisplay}>
-  //             <div>
-  //               <p>{todayFood["ご飯"][0]["名前"]}</p>
-  //               {((): ReactNode => {
-  //                 return (
-  //                   Object.keys(todayFood["ご飯"][0]["栄養"]) as unknown as (keyof food)[]
-  //                 ).map((key, index) => (
-  //                   <div key={index}>
-  //                     <p>
-  //                       {key}: {todayFood["ご飯"][0]["栄養"][key]}
-  //                       {food_unit[key]}
-  //                     </p>
-  //                   </div>
-  //                 ));
-  //               })()}
-  //             </div>
-  //             <div>
-  //               <Image src={todayFood["ご飯"][0]["URL"]} width={500} height={500} alt="飯" />
-  //             </div>
-  //             {/* <div className={styles.left}>^</div>
-  //             <div className={styles.right}>^</div> */}
-  //           </div>
-  //         );
-  //       })}
 
-  //     <Button text="食べた！" color="#3F8757" onClick={onClick} />
-  //   </>
-  // );
 };
 export default MyPage2;

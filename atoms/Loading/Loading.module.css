@@ -1,0 +1,25 @@
+.wrapper {
+    width: 160px;
+    height: 160px;
+    border-radius: 150px;
+    border: 15px solid #fff;
+    border-top-color: rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    animation: wrapper 1.2s linear infinite;
+    /* -webkit-animation: wrapper 1.2s linear infinite; */
+}
+
+.body {
+    background-color: black;
+    opacity: 0.6;
+}
+
+@keyframes wrapper {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}

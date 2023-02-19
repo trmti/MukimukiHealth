@@ -1,0 +1,40 @@
+.wrapper {
+  margin: 50px auto 0 auto;
+  text-align: center;
+  /* width: 80vw; */
+}
+
+.idealWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* .idealWrapper div {
+  width: 400px;
+  height: 400px;
+} */
+
+.wrapper h1 {
+  border-bottom: 1px solid;
+  font-size: 30px;
+  margin-bottom: 200px;
+  padding-bottom: 30px;
+}
+
+.image h1 {
+  font-size: 15px;
+  border-bottom: none;
+}
+
+.image Image {
+  width: 20%;
+  margin-top: 30px;
+  display: flex;
+  height: 100px;
+}
+
+.image {
+  text-align: center;
+}

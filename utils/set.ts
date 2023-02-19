@@ -31,10 +31,12 @@ export async function setGoals(
   protein: number,
   lipid: number,
   suger: number,
-  carbohydrates: number
+  carbohydrates: number,
+  foodTime: number
 ) {
   const ref = doc(db, 'User', userId);
   await updateDoc(ref, {
+    一日の食事回数: foodTime,
     目標栄養素: {
       カロリー: calorie,
       タンパク質: protein,

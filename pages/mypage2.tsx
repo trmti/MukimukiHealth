@@ -5,64 +5,75 @@ import { useRouter } from 'next/router';
 
 import { useState, useEffect } from 'react';
 import { getTodayFood } from '../utils/get';
+import { deleteTodayFood } from '../utils/set';
 import { detailWithDate, food } from '../utils/types';
+
+import { useAuthContext } from '../utils/AuthContext';
 
 import Button from '../atoms/Button';
 import Loading from '../atoms/Loading';
 
-const testUserId = 'Nw2N2cNhW2WaaVSgEcCZ';
-
 const MyPage2: NextPage = () => {
+  const { user } = useAuthContext();
+
   const [todayFood, setTodayFood] = useState<detailWithDate>();
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
 
   async function onLoad() {
-    setLoading(true);
-    const res = await getTodayFood(testUserId);
-    if (res) {
-      setTodayFood(res);
-    } else {
-      router.push('/mypage');
+    if (user?.email) {
+      const res = await getTodayFood(user.email);
+      if (res) {
+        setTodayFood(res);
+      } else {
+        router.push('/mypage');
+      }
     }
-    setLoading(false);
   }
 
   async function onClick() {
-    router.push('/mypage');
+    if (user?.email) {
+      await deleteTodayFood(user.email);
+
+      router.push('/mypage');
+    }
   }
 
   useEffect(() => {
     onLoad();
-  }, []);
+  }, [user]);
 
-  return (
-    <>
-      <h1>今日のご飯はこれ！</h1>
-      {!isLoading ? todayFood &&
-        todayFood['ご飯'].map((food, index) => {
-          return (
-            <div key={index}>
-              <p>{food['名前']}</p>
-              <Image src={food['URL']} width={500} height={500} alt="飯" />
-              {((): ReactNode => {
-                return (
-                  Object.keys(food['栄養']) as unknown as (keyof food)[]
-                ).map((key, index) => (
-                  <div key={index}>
-                    <p>
-                      {key}: {food['栄養'][key]}
-                    </p>
-                  </div>
-                ));
-              })()}
-            </div>
-          );
-        }) : <Loading />}
+  if (!isLoading) {
+    return (
+      <>
+        <h1>今日のご飯はこれ！</h1>
+        {todayFood &&
+          todayFood['ご飯'].map((food, index) => {
+            return (
+              <div key={index}>
+                <p>{food['名前']}</p>
+                <Image src={food['URL']} width={500} height={500} alt="飯" />
+                {((): ReactNode => {
+                  return (
+                    Object.keys(food['栄養']) as unknown as (keyof food)[]
+                  ).map((key, index) => (
+                    <div key={index}>
+                      <p>
+                        {key}: {food['栄養'][key]}
+                      </p>
+                    </div>
+                  ));
+                })()}
+              </div>
+            );
+          })}
 
-      <Button text="食べた！" color="#3F8757" onClick={onClick} />
-    </>
-  );
-};
+        <Button text="食べた！" color="#3F8757" onClick={onClick} />
+      </>
+    )
+  } else {
+    return <Loading />
+  };
+}
 
 export default MyPage2;

@@ -1,57 +1,80 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getFoodRecords, newData } from '../utils/get';
-import { foodDetail, record } from '../utils/types';
+import { getFoodRecords, getTodayFood } from '../utils/get';
+import { record } from '../utils/types';
 import Image from 'next/image';
 import Loading from '../atoms/Loading';
 
+import { useAuthContext } from '../utils/AuthContext';
 
 const MyPage: NextPage = () => {
+  const { user } = useAuthContext();
   const router = useRouter();
   const [foodRecords, setFoodRecords] = useState<record[]>([]);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function updateFoodRecord() {
-    setLoading(true);
-    const foodRecords = await getFoodRecords(1);
-    setFoodRecords(foodRecords);
-    setLoading(false);
+    setIsLoading(true);
+    if (user?.email) {
+      console.log((user.email))
+      const foodRecords = await getFoodRecords(user.email);
+      setFoodRecords(foodRecords);
+      setIsLoading(false);
+    }
   }
-
   useEffect(() => {
     updateFoodRecord();
-  }, [])
+  }, [user])
 
-  return (
-    <div>
-      <h1>なにたべる？</h1>
-      <button
-        onClick={() => {
-          router.push('/wannaEat');
-        }}
-      >
-        食べるものを決める
-      </button>
-      <h1>食事履歴</h1>
-      {!isLoading && foodRecords.length !== 0 ?
+  if (foodRecords.length !== 0) {
+    return (
+      <div>
+        <h1>なにたべる？</h1>
+        <button
+          onClick={() => {
+            router.push('/wannaEat');
+          }}
+        >
+          食べるものを決める
+        </button>
+        <h1>食事履歴</h1>
         <div>
-          {foodRecords.map((foodRecord) => {
-            console.log(foodRecord)
-            return <div>
-              <h1>{foodRecord["日付"].toDate().toLocaleString('ja-JP').split(" ")[0]}</h1>
-              {foodRecord["食べたもの"].map((detail) => (
-                <div>
-                  <Image src={detail['URL']} alt={detail["名前"]} width={200} height={200} />
-                  <h1>{detail['名前']}</h1>
+          {!isLoading && foodRecords.length !== 0 ? (
+            foodRecords.map((foodRecord, index) => {
+              return (
+                <div key={index}>
+                  <h1>
+                    {
+                      foodRecord['日付']
+                        .toDate()
+                        .toLocaleString('ja-JP')
+                        .split(' ')[0]
+                    }
+                  </h1>
+                  {foodRecord['食べたもの'].map((detail, index) => (
+                    <div key={index}>
+                      <Image
+                        src={detail['URL']}
+                        alt={detail['名前']}
+                        width={200}
+                        height={200}
+                      />
+                      <h1>{detail['名前']}</h1>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          })}
+              );
+            })
+          ) : (
+            <Loading />
+          )}
         </div>
-        : <Loading />}
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return <div></div>
+  }
 }
 
 export default MyPage;

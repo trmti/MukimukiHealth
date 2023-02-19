@@ -6,7 +6,7 @@ import styles from "../styles/mypage2.module.css";
 import { useState, useEffect } from "react";
 import { getTodayFood } from "../utils/get";
 import { detailWithDate, food, food_tanni } from "../utils/types";
-import Tabeta from "tabeta";
+import Tabeta from "tabeta.png";
 
 import Button from "../atoms/Button";
 
@@ -55,6 +55,7 @@ export const food_unit: food_tanni = {
 const MyPage2: NextPage = () => {
   const [todayFood, setTodayFood] = useState<detailWithDate>();
   const router = useRouter();
+  const [food_index, setIndex] = useState<number>(0);
 
   async function onLoad() {
     const res = await getTodayFood(testUserId);
@@ -69,6 +70,25 @@ const MyPage2: NextPage = () => {
     router.push("/mypage");
   }
 
+  function indexreducer() {
+    if (food_index != 0) {
+      setIndex(food_index - 1);
+    } else {
+      return;
+    }
+  }
+
+  function indexincreser() {
+    if (todayFood != undefined) {
+      let food_length: number = Object.keys(todayFood).length;
+      if (food_index != food_length - 1) {
+        setIndex(food_index + 1);
+      } else {
+        return;
+      }
+    }
+  }
+
   useEffect(() => {
     onLoad();
   }, []);
@@ -79,16 +99,18 @@ const MyPage2: NextPage = () => {
         <h1 className={styles.kyougohan}>今日のご飯はこれ！</h1>
         <div className={styles.fooddisplay}>
           <div className={styles.describe}>
-            <p className={styles.foodname}>{todayFood["ご飯"][0]["名前"]}</p>
+            <p className={styles.foodname}>
+              {todayFood["ご飯"][food_index]["名前"]}
+            </p>
             {((): ReactNode => {
               return (
                 Object.keys(
-                  todayFood["ご飯"][0]["栄養"]
+                  todayFood["ご飯"][food_index]["栄養"]
                 ) as unknown as (keyof food)[]
               ).map((key, index) => (
                 <div className={styles.foodeiyou} key={index}>
                   <p>
-                    {key}: {todayFood["ご飯"][0]["栄養"][key]}
+                    {key}: {todayFood["ご飯"][food_index]["栄養"][key]}
                     {food_unit[key]}
                   </p>
                 </div>
@@ -98,14 +120,18 @@ const MyPage2: NextPage = () => {
           <div>
             <Image
               className={styles.photo}
-              src={todayFood["ご飯"][0]["URL"]}
+              src={todayFood["ご飯"][food_index]["URL"]}
               width={450}
               height={450}
               alt="飯"
             />
           </div>
-          <div className={styles.left}>^</div>
-          <div className={styles.right}>^</div>
+          <button className={styles.left} onClick={indexreducer}>
+            ^
+          </button>
+          <button className={styles.right} onClick={indexincreser}>
+            ^
+          </button>
         </div>
         <div className={styles.tabeta}>
           <Button

@@ -6,7 +6,6 @@ import { ReactNode, useState, useEffect } from 'react';
 import styles from '../../styles/menuSuggest.module.css';
 
 import { food, foodDetail } from '../../utils/types';
-import { getSuggests } from '../../utils/get';
 import { setTodayFood } from '../../utils/set';
 
 import { useAuthContext } from '../../utils/AuthContext';
@@ -21,10 +20,7 @@ const MenuSuggest: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { food_id } = router.query as { food_id: string };
 
-  async function updateSuggest() {
-    const suggests = await getSuggests(1, food_id);
-    setSuggestFoods(suggests);
-  }
+  async function updateSuggest() {}
 
   async function onClick() {
     if (user?.email) {

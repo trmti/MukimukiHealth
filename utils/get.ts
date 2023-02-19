@@ -1,4 +1,13 @@
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 import firestore from 'firebase/firestore';
 import { db } from './firebase';
 import { suggestFoods } from './testData';
@@ -8,6 +17,8 @@ import {
   detailWithDate,
   User,
   record,
+  foodTypes,
+  nutritionTypes,
 } from './types';
 
 export async function getUser(userId: string): Promise<User> {
@@ -27,10 +38,7 @@ export async function newData(ids: string[], collectionName: string) {
   return res;
 }
 
-export async function getTodayFood(
-  userId: string
-): Promise<detailWithDate | null> {
-  const user = await getUser(userId);
+export async function getTodayFood(user: User): Promise<detailWithDate | null> {
   if (user && user['次のご飯']) {
     const date = user['次のご飯']['日付'];
     const ids = user['次のご飯']['ご飯'].map((food) => food.id);
@@ -41,7 +49,28 @@ export async function getTodayFood(
   }
 }
 
-export async function getSuggests(
+function getDiff(a: number, b: number): number {
+  if (b !== 0 && a < b) {
+    return a / b;
+  } else {
+    return 0;
+  }
+}
+
+export async function getSubFoodWithSort(
+  user: User,
+  foodId: string,
+  foodType: foodTypes,
+  count: number
+): Promise<foodDetail[]> {
+  const mainFood = (await getDoc(doc(db, 'ご飯', foodId))).data() as foodDetail;
+  let sortBy;
+
+  const ref = collection(db, 'ご飯');
+  const q = query(ref, where('分類', '==', foodType), limit(count));
+}
+
+export async function getSuggestedFood(
   userId: number,
   foodId: string
 ): Promise<foodDetail[][]> {

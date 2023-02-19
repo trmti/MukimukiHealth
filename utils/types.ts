@@ -96,9 +96,17 @@ export type User = {
   }[];
 };
 
+export type foodTypes = 'メイン' | '副菜' | '汁物' | '主食';
+export type nutritionTypes =
+  | 'カロリー'
+  | 'タンパク質'
+  | '炭水化物'
+  | '脂質'
+  | '糖質';
+
 export type foodDetail = {
   名前: string;
-  分類: 'メイン' | '副菜' | '汁物' | '主食';
+  分類: foodTypes;
   メイン: 'ご飯' | 'パン' | null;
   URL: string;
   栄養: food;

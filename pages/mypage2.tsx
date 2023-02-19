@@ -8,6 +8,10 @@ import { getTodayFood } from "../utils/get";
 import { detailWithDate, food, food_tanni } from "../utils/types";
 import Tabeta from "tabeta.png";
 
+import { deleteTodayFood } from "../utils/set";
+
+import { useAuthContext } from "../utils/AuthContext";
+
 import Button from "../atoms/Button";
 
 const testUserId = "Nw2N2cNhW2WaaVSgEcCZ";
@@ -53,21 +57,29 @@ export const food_unit: food_tanni = {
 };
 
 const MyPage2: NextPage = () => {
+  const { user } = useAuthContext();
+
   const [todayFood, setTodayFood] = useState<detailWithDate>();
   const router = useRouter();
   const [food_index, setIndex] = useState<number>(0);
 
   async function onLoad() {
     const res = await getTodayFood(testUserId);
-    if (res) {
-      setTodayFood(res);
-    } else {
-      router.push("/mypage");
+    if (user?.email) {
+      const res = await getTodayFood(user.email);
+      if (res) {
+        setTodayFood(res);
+      } else {
+        router.push("/mypage");
+      }
     }
   }
 
   async function onClick() {
-    router.push("/mypage");
+    if (user?.email) {
+      await deleteTodayFood(user.email);
+      router.push("/mypage");
+    }
   }
 
   function indexreducer() {
@@ -91,7 +103,7 @@ const MyPage2: NextPage = () => {
 
   useEffect(() => {
     onLoad();
-  }, []);
+  }, [user]);
 
   if (todayFood != undefined) {
     return (
@@ -178,5 +190,4 @@ const MyPage2: NextPage = () => {
   //   </>
   // );
 };
-
 export default MyPage2;

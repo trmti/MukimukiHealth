@@ -6,6 +6,7 @@ import {
   useEffect,
 } from 'react';
 import type { NextPage } from 'next';
+import { getTodayFood } from '../utils/get';
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import type { User } from 'firebase/auth';
@@ -35,7 +36,9 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
   const isAvailableForViewing =
     router.pathname === '/' ||
     router.pathname === '/login' ||
-    router.pathname === '/signup';
+    router.pathname === '/signup' ||
+    router.pathname === '/logout';
+
   const value = {
     user,
   };
@@ -52,6 +55,18 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
       authStateChanged();
     };
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (user?.email && !isAvailableForViewing) {
+        const res = await getTodayFood(user.email);
+        if (res) {
+          alert('今日のご飯のページに移動します');
+          router.push('/mypage2');
+        }
+      }
+    })();
+  }, [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

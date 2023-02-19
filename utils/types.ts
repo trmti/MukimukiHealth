@@ -85,7 +85,10 @@ export type food_tanni = {
 };
 
 export type User = {
-  次のご飯: detailWithDate;
+  体脂肪率: number;
+  体重: number;
+  身長: number;
+  次のご飯: detailWithRef;
   理想体型: food;
   食事履歴: {
     日付: firestore.Timestamp;
@@ -106,6 +109,11 @@ export type detailWithId = {
   detail: foodDetail;
 };
 
+export type detailWithRef = {
+  日付: firestore.Timestamp;
+  ご飯: { id: string }[];
+};
+
 export type detailWithDate = {
   日付: firestore.Timestamp;
   ご飯: foodDetail[];
@@ -121,4 +129,9 @@ export type ideal = {
   id: number;
   name: string;
   url: string;
+};
+
+export type record = {
+  日付: firestore.Timestamp;
+  食べたもの: foodDetail[];
 };

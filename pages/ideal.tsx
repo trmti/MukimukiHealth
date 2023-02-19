@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { setGoals } from '../utils/set';
 import { ideals } from '../utils/testData';
@@ -12,6 +13,7 @@ import styles from '../styles/ideal.module.css';
 const Ideal: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async (name: idealNames) => {
     console.log(name);

@@ -8,6 +8,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { idealNames } from './types';
 
 export async function createNewUser(email: string) {
   await setDoc(doc(db, 'User', email), {});
@@ -40,11 +41,13 @@ export async function setGoals(
   lipid: number,
   suger: number,
   carbohydrates: number,
+  ideal: idealNames,
   foodTime: number
 ) {
   const ref = doc(db, 'User', userId);
   await updateDoc(ref, {
     一日の食事回数: foodTime,
+    理想体型: ideal,
     目標栄養素: {
       カロリー: calorie,
       タンパク質: protein,

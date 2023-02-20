@@ -2,15 +2,15 @@ import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from '../styles/wannaEat.module.css';
-import { getAllFoods, getSubFoodWithSort } from '../utils/get';
+import { getAllFoods, getSubFoodWithSort, getRiceVol } from '../utils/get';
 import { useRouter } from 'next/router';
 
 import { useAuthContext } from '../utils/AuthContext';
 
-import { detailWithId, foodDetail } from '../utils/types';
+import { foodDetail } from '../utils/types';
 import Loading from '../atoms/Loading';
 
-type variety = 'メイン' | '副菜' | '汁物' | 'ご飯';
+type variety = 'メイン' | '副菜' | '汁物' | '提案';
 type Menus = {
   メイン?: foodDetail;
   副菜?: foodDetail;
@@ -33,13 +33,25 @@ const WannaEat: NextPage = () => {
 
   const getSub = async () => {
     if (firebaseUser && menu && menu['メイン']) {
-      const data = await getSubFoodWithSort(firebaseUser, menu['メイン'], 3);
+      const data = await getSubFoodWithSort(
+        firebaseUser,
+        [menu['メイン']],
+        '副菜',
+        3
+      );
       setSub(data);
     }
   };
 
   const getSoup = async () => {
-    if (firebaseUser && menu && menu['メイン']) {
+    if (firebaseUser && menu && menu['メイン'] && menu['副菜']) {
+      const data = await getSubFoodWithSort(
+        firebaseUser,
+        [menu['メイン'], menu['副菜']],
+        '汁物',
+        3
+      );
+      setSoup(data);
     }
   };
 
@@ -92,6 +104,7 @@ const WannaEat: NextPage = () => {
     getSub();
     return (
       <div>
+        <h1>副菜</h1>
         {sub.map((detail, index) => (
           <div
             key={index}
@@ -110,11 +123,56 @@ const WannaEat: NextPage = () => {
     );
   } else if (currentVariety === '汁物') {
     getSoup();
-    return <></>;
-  } else if (currentVariety === 'ご飯') {
+    return (
+      <div>
+        <h1>汁物</h1>
+        {soup.map((detail, index) => (
+          <div
+            key={index}
+            onClick={async () => {
+              setMenu((prev) => {
+                if (prev)
+                  return {
+                    メイン: prev['メイン'],
+                    副菜: prev['副菜'],
+                    汁物: detail,
+                  };
+              });
+              if (
+                firebaseUser &&
+                menu &&
+                menu['メイン'] &&
+                menu['副菜'] &&
+                menu['汁物']
+              ) {
+                const rice = await getRiceVol(firebaseUser, [
+                  menu['メイン'],
+                  menu['副菜'],
+                  menu['汁物'],
+                ]);
+                setMenu((prev) => {
+                  if (prev)
+                    return {
+                      メイン: prev['メイン'],
+                      副菜: prev['副菜'],
+                      汁物: prev['汁物'],
+                      主食: rice,
+                    };
+                });
+                setCurrentVariety('提案');
+              }
+            }}
+          >
+            <Image src={detail['URL']} width={500} height={500} alt="ご飯" />
+            <p>{detail['名前']}</p>
+          </div>
+        ))}
+      </div>
+    );
+  } else if (currentVariety === '提案') {
     return <></>;
   } else {
-    return <></>;
+    return <>エラー</>;
   }
 };
 

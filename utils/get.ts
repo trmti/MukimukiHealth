@@ -99,13 +99,37 @@ export async function getSubFoodWithSort(
 }
 
 // ここに明石が書く
-export async function getRiceVol(
-  user: User,
-  foods: foodDetail[]
-): Promise<foodDetail> {
-  const allFood = await getAllFoods();
-  const res = allFood.filter((food) => food['名前'] === 'ご飯（中');
-  return res[0];
+export async function getRiceVol(user: User, foods: foodDetail[]) {
+  let ideal_cal = user.目標栄養素.カロリー;
+  const AllFoods = await getAllFoods();
+
+  const L_RICE = AllFoods.filter((food) => food.名前 == "ご飯（大）")[0];
+  const M_RICE = AllFoods.filter((food) => food.名前 == "ご飯（中）")[0];
+  const S_RICE = AllFoods.filter((food) => food.名前 == "ご飯（小）")[0];
+
+  foods.forEach((food) => (
+    ideal_cal -= food.カロリー
+  ));
+
+  if(ideal_cal > L_RICE.カロリー)
+  {
+    return L_RICE;
+  }
+  else if(ideal_cal > M_RICE.カロリー)
+  {
+    return M_RICE;
+  }
+  else
+  {
+    return S_RICE;
+  }
+}
+
+export async function getSuggestedFood(
+  userId: number,
+  foodId: string
+): Promise<foodDetail[][]> {
+  return suggestFoods;
 }
 
 export async function getAllFoods() {

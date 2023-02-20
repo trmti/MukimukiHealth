@@ -1,0 +1,10 @@
+.wrapper {
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper h1 {
+    font-size: 3rem;
+}

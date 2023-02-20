@@ -1,8 +1,16 @@
 # 使い方
 
+## エミュレータのインストール
+
+```
+$ npm install -g firebase-tools
+$ firebase login
+```
+
 ## サーバー起動
 
 ```
+$ firebase emulators:start --import=./data
 $ yarn dev
 ```
 

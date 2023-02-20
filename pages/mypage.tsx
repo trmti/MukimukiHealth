@@ -45,46 +45,54 @@ const MyPage: NextPage = () => {
         </div>
       </div>
 
-      {!isLoading && foodRecords.length !== 0 ? (
+      {!isLoading ? (
         <div className={styles.wrapper}>
           <hr className={styles.border1} />
-          <h1 className={styles.rireki}>食事履歴</h1>
-          <div className={styles.record}>
-            {foodRecords.map((foodRecord, index) => {
-              const url = foodRecord['食べたもの'].find(
-                (detail) => detail['分類'] == 'メイン'
-              );
-              if (url) {
-                const background = 'url(' + url['URL'] + ')';
-                return (
-                  <div
-                    className={styles.eachDate}
-                    key={index}
-                    style={{ backgroundImage: background }}
-                  >
-                    <div className={styles.overlay}></div>
-                    <div className={styles.detail}>
-                      <p className={styles.date}>
-                        {
-                          foodRecord['日付']
-                            .toDate()
-                            .toLocaleString('ja-JP')
-                            .split(' ')[0]
-                        }
-                      </p>
-                      {foodRecord['食べたもの'].map((detail, index) => {
-                        return (
-                          <p className={styles.eachFood}>{detail['名前']}</p>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              } else {
-                return <></>;
-              }
-            })}
-          </div>
+          {foodRecords.length !== 0 ? (
+            <div>
+              <h1 className={styles.rireki}>食事履歴</h1>
+              <div className={styles.record}>
+                {foodRecords.map((foodRecord, index) => {
+                  const url = foodRecord['食べたもの'].find(
+                    (detail) => detail['分類'] == 'メイン'
+                  );
+                  if (url) {
+                    const background = 'url(' + url['URL'] + ')';
+                    return (
+                      <div
+                        className={styles.eachDate}
+                        key={index}
+                        style={{ backgroundImage: background }}
+                      >
+                        <div className={styles.overlay}></div>
+                        <div className={styles.detail}>
+                          <p className={styles.date}>
+                            {
+                              foodRecord['日付']
+                                .toDate()
+                                .toLocaleString('ja-JP')
+                                .split(' ')[0]
+                            }
+                          </p>
+                          {foodRecord['食べたもの'].map((detail, index) => {
+                            return (
+                              <p className={styles.eachFood}>
+                                {detail['名前']}
+                              </p>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return <></>;
+                  }
+                })}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <Loading />

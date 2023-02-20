@@ -108,7 +108,7 @@ const WannaEat: NextPage = () => {
         menu['汁物'],
         rice,
       ]);
-      setCurrentVariety('提案');
+      router.push('/mypage2');
     }
   };
 

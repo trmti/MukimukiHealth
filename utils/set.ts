@@ -55,6 +55,7 @@ export async function setGoals(
 export async function setTodayFood(user: UserType, foods: foodDetail[]) {
   if (user?.email) {
     const ref = doc(db, 'User', user.email);
+    console.log(foods);
 
     await updateDoc(ref, {
       次のご飯: {

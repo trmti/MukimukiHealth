@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Loading from '../atoms/Loading';
 
 import { useAuthContext } from '../utils/AuthContext';
+import Logout from './logout';
 
 const MyPage: NextPage = () => {
   const { user } = useAuthContext();
@@ -15,22 +16,22 @@ const MyPage: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function updateFoodRecord() {
+    setIsLoading(true);
     if (user?.email) {
-      console.log((user.email))
       const foodRecords = await getFoodRecords(user.email);
       setFoodRecords(foodRecords);
     }
+    setIsLoading(false);
   }
   useEffect(() => {
-    setIsLoading(true);
     updateFoodRecord();
-    setIsLoading(false);
   }, [user])
 
   return (
     <div>
       <h1>なにたべる？</h1>
       <button
+        disabled={isLoading}
         onClick={() => {
           router.push('/wannaEat');
         }}

@@ -6,24 +6,21 @@ import { ReactNode, useState, useEffect } from 'react';
 import styles from '../../styles/menuSuggest.module.css';
 
 import { food, foodDetail } from '../../utils/types';
-import { getSuggests } from '../../utils/get';
 import { setTodayFood } from '../../utils/set';
 
 import { useAuthContext } from '../../utils/AuthContext';
 import Button from '../../atoms/Button';
+import Loading from '../../atoms/Loading';
 
 const MenuSuggest: NextPage = () => {
   const { user } = useAuthContext();
 
   const router = useRouter();
   const [suggestFoods, setSuggestFoods] = useState<foodDetail[][]>();
-
+  const [isLoading, setIsLoading] = useState(false);
   const { food_id } = router.query as { food_id: string };
 
-  async function updateSuggest() {
-    const suggests = await getSuggests(1, food_id);
-    setSuggestFoods(suggests);
-  }
+  async function updateSuggest() {}
 
   async function onClick() {
     if (user?.email) {
@@ -57,11 +54,11 @@ const MenuSuggest: NextPage = () => {
                     <div>
                       {((): ReactNode => {
                         return (
-                          Object.keys(food['栄養']) as unknown as (keyof food)[]
+                          Object.keys(food) as unknown as (keyof food)[]
                         ).map((key, index) => (
                           <div key={index}>
                             <p>
-                              {key}: {food['栄養'][key]}
+                              {key}: {food[key]}
                             </p>
                           </div>
                         ));
@@ -77,7 +74,7 @@ const MenuSuggest: NextPage = () => {
       </div>
     );
   } else {
-    return <p>loading...</p>;
+    return <Loading />;
   }
 };
 

@@ -69,7 +69,7 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
     (async () => {
       if (firebaseUser && !isAvailableForViewing) {
         const res = await getTodayFood(firebaseUser);
-        if (res) {
+        if (user && res) {
           alert('今日のご飯のページに移動します');
           router.push('/mypage2');
         }

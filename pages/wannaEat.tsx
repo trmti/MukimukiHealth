@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { useState, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
 
-import Main from '../moleculs/wannaEat/main';
+import Main from '../moleculs/wannaEat/Main';
 import styles from '../styles/wannaEat.module.css';
 import { getSubFoodWithSort, getRiceVol, getFoodWithType } from '../utils/get';
 import { setTodayFood } from '../utils/set';

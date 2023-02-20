@@ -1,21 +1,52 @@
-import type { NextPage } from "next";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "../styles/wannaEat.module.css";
-import { getAllFoods } from "../utils/get";
-import { useRouter } from "next/router";
-import { detailWithId } from "../utils/types";
-import Loading from "../atoms/Loading";
+import type { NextPage } from 'next';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import styles from '../styles/wannaEat.module.css';
+import { getAllFoods, getSubFoodWithSort } from '../utils/get';
+import { useRouter } from 'next/router';
+
+import { useAuthContext } from '../utils/AuthContext';
+
+import { detailWithId, foodDetail } from '../utils/types';
+import Loading from '../atoms/Loading';
+
+type variety = 'メイン' | '副菜' | '汁物' | 'ご飯';
+type Menus = {
+  メイン?: foodDetail;
+  副菜?: foodDetail;
+  汁物?: foodDetail;
+  ご飯?: foodDetail;
+};
 
 const WannaEat: NextPage = () => {
-  const [foods, setFoods] = useState<detailWithId[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { firebaseUser } = useAuthContext();
+
+  const [main, setMain] = useState<foodDetail[]>([]);
+  const [sub, setSub] = useState<foodDetail[]>([]);
+  const [soup, setSoup] = useState<foodDetail[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentVariety, setCurrentVariety] = useState<variety>('メイン');
+
+  const [menu, setMenu] = useState<Menus>();
+
   const router = useRouter();
+
+  const getSub = async () => {
+    if (firebaseUser && menu && menu['メイン']) {
+      const data = await getSubFoodWithSort(firebaseUser, menu['メイン'], 3);
+      setSub(data);
+    }
+  };
+
+  const getSoup = async () => {
+    if (firebaseUser && menu && menu['メイン']) {
+    }
+  };
 
   const onLoad = async () => {
     setIsLoading(true);
     const res = await getAllFoods();
-    setFoods(res);
+    setMain(res);
     setIsLoading(false);
   };
 
@@ -23,36 +54,68 @@ const WannaEat: NextPage = () => {
     onLoad();
   }, []);
 
-  return (
-    <div id="text" className={styles.wrapper}>
-      <div className={styles.border1}></div>
-      <h1 className={styles.tabetaimono}>食べたいものはなんですか？</h1>
-      <div className={styles.border2}></div>
-      {!isLoading ? (
-        <div className={styles.foodsWrapper}>
-          {foods.map(({ id, detail }, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                router.push(`/menuSuggest/${id}`);
-              }}
-            >
-              <Image
-                className={styles.graphy}
-                src={detail["URL"]}
-                alt="力士"
-                width={200}
-                height={200}
-              />
-              <h1 className={styles.foodname}>{detail["名前"]}</h1>
-            </div>
-          ))}
-          <div className={styles.left}>^</div>
-          <div className={styles.right}>^</div>
-        </div>
-      ) : <Loading />}
-    </div>
-  );
+  if (currentVariety === 'メイン') {
+    return (
+      <div id="text" className={styles.wrapper}>
+        <div className={styles.border1}></div>
+        <h1 className={styles.tabetaimono}>食べたいものはなんですか？</h1>
+        <div className={styles.border2}></div>
+        {!isLoading ? (
+          <div className={styles.foodsWrapper}>
+            {main.map((detail, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  setMenu(() => ({ メイン: detail }));
+                  setCurrentVariety('副菜');
+                }}
+              >
+                <Image
+                  className={styles.graphy}
+                  src={detail['URL']}
+                  alt="力士"
+                  width={200}
+                  height={200}
+                />
+                <h1 className={styles.foodname}>{detail['名前']}</h1>
+              </div>
+            ))}
+            <div className={styles.left}>^</div>
+            <div className={styles.right}>^</div>
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </div>
+    );
+  } else if (currentVariety === '副菜') {
+    getSub();
+    return (
+      <div>
+        {sub.map((detail, index) => (
+          <div
+            key={index}
+            onClick={() => {
+              setMenu((prev) => {
+                if (prev) return { メイン: prev['メイン'], 副菜: detail };
+              });
+              setCurrentVariety('汁物');
+            }}
+          >
+            <Image src={detail['URL']} width={500} height={500} alt="ご飯" />
+            <p>{detail['名前']}</p>
+          </div>
+        ))}
+      </div>
+    );
+  } else if (currentVariety === '汁物') {
+    getSoup();
+    return <></>;
+  } else if (currentVariety === 'ご飯') {
+    return <></>;
+  } else {
+    return <></>;
+  }
 };
 
 export default WannaEat;

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Input from '../../atoms/Input';
 import Button from '../../atoms/Button/';
 import styles from './LoginForm.module.css';
+import TextWithLine from '../../atoms/TextWithLine/index';
+
 
 type Props = {
   onSubmit: (e: any, email: string, password: string) => Promise<void>;
@@ -14,6 +16,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
   const [password, setPassword] = useState('');
   return (
     <div className={styles.wrapper}>
+      <h1 >ログイン</h1>
       <Input
         label="メールアドレス"
         placeholder="sample@hoge.com"
@@ -28,6 +31,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
       />
       <Button
         text="ログイン"
+        color="#343538"
         onClick={(e) => {
           return onSubmit(e, email, password);
         }}
@@ -35,7 +39,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
 
       <Link
         href="/signup"
-        style={{ color: '#2F87D8', marginBottom: '50px', display: 'block' }}
+        style={{ color: '#2F87D8', margin: '15px auto 5px', display: 'block' }}
       >
         新規登録はこちら
       </Link>

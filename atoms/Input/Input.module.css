@@ -5,8 +5,9 @@
 }
 
 .wrapper p {
+  font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 
 .wrapper input {

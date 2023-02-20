@@ -1,19 +1,9 @@
-import {
-  collection,
-  getDocs,
-  getDoc,
-  doc,
-  query,
-  where,
-  orderBy,
-  limit,
-} from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import firestore from 'firebase/firestore';
 import { db } from './firebase';
 import { suggestFoods } from './testData';
 import {
   foodDetail,
-  detailWithId,
   detailWithDate,
   User,
   record,
@@ -57,6 +47,7 @@ function getDiff(a: number, b: number): number {
   }
 }
 
+// compareFoodsのご飯を考慮しておかずを提案。
 export async function getSubFoodWithSort(
   user: User,
   compareFoods: foodDetail[],
@@ -68,7 +59,6 @@ export async function getSubFoodWithSort(
     'カロリー',
     'タンパク質',
     '脂質',
-    '糖質',
     '炭水化物',
   ];
   let nutritions = {
@@ -97,17 +87,22 @@ export async function getSubFoodWithSort(
   const sortBy = nutritionCandidate[maxIndex];
   const foods = await getAllFoods();
 
-  return foods;
+  const filteredFoods = foods.filter((food) => food['分類'] === type);
+  const res = filteredFoods
+    .sort((a, b) => a[sortBy] - b[sortBy])
+    .slice(0, count);
+
+  return res;
 }
 
 // ここに明石が書く
-export async function getRiceVol(user: User, foods: foodDetail[]) {}
-
-export async function getSuggestedFood(
-  userId: number,
-  foodId: string
-): Promise<foodDetail[][]> {
-  return suggestFoods;
+export async function getRiceVol(
+  user: User,
+  foods: foodDetail[]
+): Promise<foodDetail> {
+  const allFood = await getAllFoods();
+  const res = allFood.filter((food) => food['名前'] === 'ご飯（中');
+  return res[0];
 }
 
 export async function getAllFoods() {
@@ -119,10 +114,6 @@ export async function getAllFoods() {
   });
 
   return res;
-}
-
-export async function getIdeal(userId: number): Promise<number> {
-  return 1;
 }
 
 export async function getFoodRecords(userId: string): Promise<record[]> {

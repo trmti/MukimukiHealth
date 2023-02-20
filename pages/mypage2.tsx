@@ -35,11 +35,13 @@ const MyPage2: NextPage = () => {
 
   async function onLoad() {
     setIsLoading(true);
+    console.log(user, firebaseUser);
     if (user?.email && firebaseUser) {
       const res = await getTodayFood(firebaseUser);
-      if (res) {
+      if (user && res) {
         setTodayFood(res);
       } else {
+        alert('mypageに移動します');
         router.push('/mypage');
       }
     }

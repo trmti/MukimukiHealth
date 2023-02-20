@@ -136,15 +136,19 @@ export async function getFoodRecords(userId: string): Promise<record[]> {
 
   if (docSnap.exists()) {
     const foodRecords = docSnap.data()['食事履歴'] as record[];
-    const res = await Promise.all(
-      foodRecords.map(async (foodRecord) => {
-        // @ts-ignore
-        const ids = foodRecord['食べたもの'].map((food) => food.id) as string[];
-        const res = (await newData(ids, 'ご飯')) as foodDetail[];
-        const date = foodRecord['日付'] as firestore.Timestamp;
-        r.push({ 日付: date, 食べたもの: res });
-      })
-    );
+    if (foodRecords) {
+      await Promise.all(
+        foodRecords.map(async (foodRecord) => {
+          const ids = foodRecord['食べたもの'].map(
+            // @ts-ignore
+            (food) => food.id
+          ) as string[];
+          const res = (await newData(ids, 'ご飯')) as foodDetail[];
+          const date = foodRecord['日付'] as firestore.Timestamp;
+          r.push({ 日付: date, 食べたもの: res });
+        })
+      );
+    }
     return r;
   } else {
     console.log('Userが見つかりません');

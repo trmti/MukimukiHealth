@@ -1,5 +1,9 @@
 # 使い方
 
+## エミュレータの編集
+
+https://qiita.com/tanabee/items/2ce4d50e5ea320beb0cf
+
 ## エミュレータのインストール
 
 ```

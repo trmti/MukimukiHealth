@@ -49,8 +49,8 @@ const Signup: NextPage = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      alert('ログイン済みです。マイページに移動します。');
-      router.push('/mypage');
+      alert('ログイン済みです。データ入力画面に移動します。');
+      router.push('/bmi');
     }
   }, [isLoggedIn]);
 

@@ -6,17 +6,21 @@ import {
   useEffect,
 } from 'react';
 import type { NextPage } from 'next';
-import { getTodayFood } from '../utils/get';
+import { getTodayFood, getUser } from '../utils/get';
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import type { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { app } from './firebase';
 
+import type { User as FirebaseUser } from './types';
+import type { User } from 'firebase/auth';
+
 export type UserType = User | null;
+export type FirebaseUserType = FirebaseUser | null;
 
 export type AuthContextProps = {
   user: UserType;
+  firebaseUser: FirebaseUserType;
 };
 
 export type AuthProps = {
@@ -33,6 +37,7 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
   const router = useRouter();
   const auth = getAuth(app);
   const [user, setUser] = useState<UserType>(null);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUserType>(null);
   const isAvailableForViewing =
     router.pathname === '/' ||
     router.pathname === '/login' ||
@@ -41,6 +46,7 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
 
   const value = {
     user,
+    firebaseUser,
   };
 
   useEffect(() => {
@@ -49,6 +55,9 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
       if (!user && !isAvailableForViewing) {
         alert('ログインしてください');
         await router.push('/login');
+      } else if (user?.email) {
+        const newUser = await getUser(user.email);
+        setFirebaseUser(newUser);
       }
     });
     return () => {
@@ -58,8 +67,8 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      if (user?.email && !isAvailableForViewing) {
-        const res = await getTodayFood(user.email);
+      if (firebaseUser && !isAvailableForViewing) {
+        const res = await getTodayFood(firebaseUser);
         if (res) {
           alert('今日のご飯のページに移動します');
           router.push('/mypage2');

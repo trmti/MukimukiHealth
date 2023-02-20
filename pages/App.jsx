@@ -1,6 +1,5 @@
-import './App.css';
 import React, { useEffect, useState, useRef } from 'react';
-import db from './firebase';
+import { db } from '../utils/firebase';
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import * as XLSX from 'xlsx';
 

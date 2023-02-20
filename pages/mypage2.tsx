@@ -98,6 +98,7 @@ const MyPage2: NextPage = () => {
               ).map((key, index) => (
                 <div className={styles.foodeiyou} key={index}>
                   <p>
+                    {/* if(key === "カロリー" || key === "タンパク質"|| key === "炭水化物"|| key === "脂質"|| key === "糖質")  */}
                     {key}: {todayFood["ご飯"][food_index][key]}
                     {food_unit[key]}
                   </p>

@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { foodDetail } from '../../utils/types';
 import styles from './main.module.css';
+import Loading from '../../atoms/Loading';
 
 type Props = {
   main: foodDetail[];
@@ -39,7 +40,9 @@ const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
             <div className={styles.right}>^</div>
           </div>
         ) : (
-          <></>
+          <>
+            <Loading />
+          </>
         )}
       </div>
     </>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import TextWithLine from '../atoms/TextWithLine/index';
 import Loading from '../atoms/Loading';
 import SignUpForm from '../moleculs/SignUpForm/index';
 
@@ -65,7 +64,6 @@ const Signup: NextPage = () => {
   } else {
     return <Loading />;
   }
-
 };
 
 export default Signup;

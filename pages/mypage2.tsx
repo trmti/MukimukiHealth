@@ -1,14 +1,14 @@
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { getTodayFood } from '../utils/get';
-import { detailWithDate } from '../utils/types';
-import { deleteTodayFood } from '../utils/set';
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import { getTodayFood } from "../utils/get";
+import { detailWithDate } from "../utils/types";
+import { deleteTodayFood } from "../utils/set";
 
-import { useAuthContext } from '../utils/AuthContext';
+import { useAuthContext } from "../utils/AuthContext";
 
-import Mypage2Temp from '../moleculs/Mypage2';
-import Loading from '../atoms/Loading';
+import Mypage2Temp from "../moleculs/Mypage2";
+import Loading from "../atoms/Loading";
 
 const MyPage2: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
@@ -25,8 +25,8 @@ const MyPage2: NextPage = () => {
       if (user && res) {
         setTodayFood(res);
       } else {
-        alert('mypageに移動します');
-        router.push('/mypage');
+        alert("mypageに移動します");
+        router.push("/mypage");
       }
     }
     setIsLoading(false);
@@ -35,7 +35,7 @@ const MyPage2: NextPage = () => {
   async function onClick() {
     if (user?.email) {
       await deleteTodayFood(user.email);
-      router.push('/mypage');
+      router.push("/mypage");
     }
   }
 
@@ -59,7 +59,9 @@ const MyPage2: NextPage = () => {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     onLoad();
+    setIsLoading(false);
   }, [firebaseUser]);
 
   if (todayFood != undefined && !isLoading) {

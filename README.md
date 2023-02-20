@@ -3,6 +3,7 @@
 ## サーバー起動
 
 ```
+$ firebase emulators:start --import=./data
 $ yarn dev
 ```
 

@@ -8,9 +8,9 @@ import {
 import type { NextPage } from 'next';
 import { getTodayFood, getUser } from '../utils/get';
 
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { app } from './firebase';
+import { app, auth } from './firebase';
 
 import type { User as FirebaseUser } from './types';
 import type { User } from 'firebase/auth';
@@ -35,7 +35,6 @@ export const useAuthContext = () => {
 
 export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
   const router = useRouter();
-  const auth = getAuth(app);
   const [user, setUser] = useState<UserType>(null);
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUserType>(null);
   const isAvailableForViewing =

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { setUserData } from '../utils/set';
 import { useAuthContext } from '../utils/AuthContext';
 

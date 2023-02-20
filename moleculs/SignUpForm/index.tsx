@@ -22,6 +22,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
 
   return (
     <div className={styles.wrapper}>
+      <h1 >新規登録</h1>
       <Input
         label="メールアドレス"
         placeholder="sample@hoge.com"
@@ -45,6 +46,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
       />
       <Button
         text="登録"
+        color='#343538'
         onClick={(e) => {
           return onSubmit(e, email, password, rePassword);
         }}

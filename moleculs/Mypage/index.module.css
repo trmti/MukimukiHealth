@@ -58,7 +58,7 @@
 
 .overlay::before {
   /* ↓暗いオーバーレイを半透明で配置 */
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);

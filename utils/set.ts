@@ -1,13 +1,7 @@
-import {
-  doc,
-  collection,
-  getDoc,
-  getDocs,
-  updateDoc,
-  deleteField,
-  setDoc,
-} from 'firebase/firestore';
+import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore';
+import { UserType } from './AuthContext';
 import { db } from './firebase';
+import { idealNames, foodDetail } from './types';
 
 export async function createNewUser(email: string) {
   await setDoc(doc(db, 'User', email), {});
@@ -40,11 +34,13 @@ export async function setGoals(
   lipid: number,
   suger: number,
   carbohydrates: number,
+  ideal: idealNames,
   foodTime: number
 ) {
   const ref = doc(db, 'User', userId);
   await updateDoc(ref, {
     一日の食事回数: foodTime,
+    理想体型: ideal,
     目標栄養素: {
       カロリー: calorie,
       タンパク質: protein,
@@ -56,55 +52,15 @@ export async function setGoals(
 }
 
 // テスト用の関数
-export async function setTodayFood(userId: string) {
-  const ref = doc(db, 'User', userId);
+export async function setTodayFood(user: UserType, foods: foodDetail[]) {
+  if (user?.email) {
+    const ref = doc(db, 'User', user.email);
 
-  await updateDoc(ref, {
-    次のご飯: {
-      日付: Date.now(),
-      ご飯: [
-        doc(db, 'ご飯', 'すし'),
-        doc(db, 'ご飯', 'とんかつ'),
-        doc(db, 'ご飯', 'オムライス'),
-      ],
-    },
-  });
+    await updateDoc(ref, {
+      次のご飯: {
+        日付: Date.now(),
+        ご飯: foods.map((food) => doc(db, 'ご飯', food['名前'])),
+      },
+    });
+  }
 }
-
-// export async function updateDB() {
-//   const querySnapshot = await getDocs(collection(db, 'ご飯'));
-//   console.log(querySnapshot);
-//   // @ts-ignore
-//   const ls = [];
-//   let n = {};
-//   //@ts-ignore
-//   querySnapshot.forEach((a: any) => {
-//     const data = a.data();
-//     const nutritions = data['栄養'];
-//     // @ts-ignore
-//     n[a.id] = nutritions;
-//   });
-
-//   await Promise.all(
-//     // @ts-ignore
-//     Object.keys(n).map(async (k) => {
-//       const newDoc = doc(db, 'ご飯', k);
-//       const nutritions = n[k];
-//       console.log(nutritions);
-//       // @ts-ignore
-//       if (nutritions) {
-//         await updateDoc(newDoc, {
-//           栄養: deleteField(),
-//           カロリー: nutritions['カロリー'],
-//           タンパク質: nutritions['タンパク質'],
-//           糖質: nutritions['糖質'],
-//           炭水化物: nutritions['炭水化物'],
-//           脂質: nutritions['脂質'],
-//           赤: nutritions['赤'],
-//           黄色: nutritions['黄色'],
-//           緑: nutritions['緑'],
-//         });
-//       }
-//     })
-//   );
-// }

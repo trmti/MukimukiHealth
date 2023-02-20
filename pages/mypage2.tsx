@@ -6,14 +6,13 @@ import styles from "../styles/mypage2.module.css";
 import { useState, useEffect } from "react";
 import { getTodayFood } from "../utils/get";
 import { detailWithDate, food, food_tanni } from "../utils/types";
-import Tabeta from "tabeta.png";
 
 import { deleteTodayFood } from "../utils/set";
 
 import { useAuthContext } from "../utils/AuthContext";
 
 import Button from "../atoms/Button";
-import Loading from '../atoms/Loading';
+import Loading from "../atoms/Loading";
 
 const testUserId = "Nw2N2cNhW2WaaVSgEcCZ";
 export const food_unit: food_tanni = {
@@ -104,14 +103,15 @@ const MyPage2: NextPage = () => {
   }
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     onLoad();
-    setLoading(false)
+    setLoading(false);
   }, [user]);
 
   if (todayFood != undefined && !isLoading) {
     return (
       <>
+        {console.log(todayFood)}
         <h1 className={styles.kyougohan}>今日のご飯はこれ！</h1>
         <div className={styles.fooddisplay}>
           <div className={styles.describe}>
@@ -133,6 +133,11 @@ const MyPage2: NextPage = () => {
               ));
             })()}
           </div>
+          <img
+            className={styles.left}
+            src="houkou.png"
+            onClick={indexreducer}
+          ></img>
           <div>
             <Image
               className={styles.photo}
@@ -142,26 +147,19 @@ const MyPage2: NextPage = () => {
               alt="飯"
             />
           </div>
-          <button className={styles.left} onClick={indexreducer}>
-            ^
-          </button>
-          <button className={styles.right} onClick={indexincreser}>
-            ^
-          </button>
+          <img
+            className={styles.right}
+            src="houkou.png"
+            onClick={indexincreser}
+          ></img>
         </div>
         <div className={styles.tabeta}>
-          <Button
-            text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;食べた！"
-            color="#3F8757"
-            onClick={onClick}
-          />
-          <img className={styles.tabetayo} src="/tabeta.png" />
+          <Button text="食べた!" color="#3c8454" onClick={onClick} />
         </div>
       </>
     );
   } else {
     return <Loading />;
   }
-
 };
 export default MyPage2;

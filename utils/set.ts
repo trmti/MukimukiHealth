@@ -1,4 +1,12 @@
-import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore';
+import {
+  doc,
+  collection,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteField,
+  setDoc,
+} from 'firebase/firestore';
 import { db } from './firebase';
 
 export async function createNewUser(email: string) {
@@ -62,3 +70,41 @@ export async function setTodayFood(userId: string) {
     },
   });
 }
+
+// export async function updateDB() {
+//   const querySnapshot = await getDocs(collection(db, 'ご飯'));
+//   console.log(querySnapshot);
+//   // @ts-ignore
+//   const ls = [];
+//   let n = {};
+//   //@ts-ignore
+//   querySnapshot.forEach((a: any) => {
+//     const data = a.data();
+//     const nutritions = data['栄養'];
+//     // @ts-ignore
+//     n[a.id] = nutritions;
+//   });
+
+//   await Promise.all(
+//     // @ts-ignore
+//     Object.keys(n).map(async (k) => {
+//       const newDoc = doc(db, 'ご飯', k);
+//       const nutritions = n[k];
+//       console.log(nutritions);
+//       // @ts-ignore
+//       if (nutritions) {
+//         await updateDoc(newDoc, {
+//           栄養: deleteField(),
+//           カロリー: nutritions['カロリー'],
+//           タンパク質: nutritions['タンパク質'],
+//           糖質: nutritions['糖質'],
+//           炭水化物: nutritions['炭水化物'],
+//           脂質: nutritions['脂質'],
+//           赤: nutritions['赤'],
+//           黄色: nutritions['黄色'],
+//           緑: nutritions['緑'],
+//         });
+//       }
+//     })
+//   );
+// }

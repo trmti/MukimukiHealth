@@ -54,11 +54,11 @@ const MenuSuggest: NextPage = () => {
                     <div>
                       {((): ReactNode => {
                         return (
-                          Object.keys(food['栄養']) as unknown as (keyof food)[]
+                          Object.keys(food) as unknown as (keyof food)[]
                         ).map((key, index) => (
                           <div key={index}>
                             <p>
-                              {key}: {food['栄養'][key]}
+                              {key}: {food[key]}
                             </p>
                           </div>
                         ));

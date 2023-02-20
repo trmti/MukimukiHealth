@@ -23,38 +23,6 @@ export const food_unit: food_tanni = {
   炭水化物: 'g',
   糖質: 'g',
   食物繊維: 'g',
-
-  // ミネラル
-  ナトリウム: 'mg',
-  食塩相当量: 'g',
-  カリウム: 'mg',
-  カルシウム: 'mg',
-  マグネシウム: 'mg',
-  リン: 'mg',
-  鉄: 'mg',
-  亜鉛: 'mg',
-  銅: 'mg',
-  マンガン: 'mg',
-  ヨウ素: 'μg',
-  セレン: 'μg',
-  クロム: 'μg',
-  モリブデン: 'μg',
-
-  // ビタミン
-  ビタミンA: 'μg',
-  betaカロテン: 'μg',
-  ビタミンD: 'μg',
-  ビタミンE: 'mg',
-  ビタミンK: 'μg',
-  ビタミンB1: 'mg',
-  ビタミンB2: 'mg',
-  ナイアシン: 'mg',
-  ビタミンB6: 'mg',
-  ビタミンB12: 'μg',
-  葉酸: 'μg',
-  パントテン酸: 'mg',
-  ビオチン: 'μg',
-  ビタミンC: 'mg',
 };
 
 const MyPage2: NextPage = () => {
@@ -106,7 +74,7 @@ const MyPage2: NextPage = () => {
 
   useEffect(() => {
     onLoad();
-  }, [user]);
+  }, [firebaseUser]);
 
   if (todayFood != undefined && !isLoading) {
     return (
@@ -120,12 +88,12 @@ const MyPage2: NextPage = () => {
             {((): ReactNode => {
               return (
                 Object.keys(
-                  todayFood['ご飯'][food_index]['栄養']
+                  todayFood['ご飯'][food_index]
                 ) as unknown as (keyof food)[]
               ).map((key, index) => (
                 <div className={styles.foodeiyou} key={index}>
                   <p>
-                    {key}: {todayFood['ご飯'][food_index]['栄養'][key]}
+                    {key}: {todayFood['ご飯'][food_index][key]}
                     {food_unit[key]}
                   </p>
                 </div>

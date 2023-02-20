@@ -59,16 +59,53 @@ function getDiff(a: number, b: number): number {
 
 export async function getSubFoodWithSort(
   user: User,
-  foodId: string,
-  foodType: foodTypes,
+  mainFood: foodDetail,
   count: number
 ): Promise<foodDetail[]> {
-  const mainFood = (await getDoc(doc(db, 'ご飯', foodId))).data() as foodDetail;
-  let sortBy;
+  const ideals = user['目標栄養素'];
+  const nutritions = mainFood;
+  const nutritionCandidate: nutritionTypes[] = [
+    'カロリー',
+    'タンパク質',
+    '脂質',
+    '糖質',
+    '炭水化物',
+  ];
+  let arr: number[] = [];
+
+  nutritionCandidate.map((n) => {
+    arr.push(getDiff(nutritions[n], ideals[n]));
+  });
+
+  const maxIndex = arr.reduce(
+    (iMax, x, i, arr) => (x > arr[iMax] ? i : iMax),
+    0
+  );
 
   const ref = collection(db, 'ご飯');
-  const q = query(ref, where('分類', '==', foodType), limit(count));
+  const q = query(
+    ref,
+    where('分類', '==', '副菜'),
+    orderBy(nutritionCandidate[maxIndex], 'desc'),
+    limit(count)
+  );
+
+  const querySnapshot = await getDocs(q);
+  let res: foodDetail[] = [];
+  querySnapshot.forEach((snapshot) => {
+    const detail = snapshot.data() as foodDetail;
+    res.push(detail);
+  });
+
+  return res;
 }
+
+export async function getSoupWithSort(
+  user: User,
+  mainFood: foodDetail,
+  subFood: foodDetail,
+  count: number
+): Promise<void> {}
 
 export async function getSuggestedFood(
   userId: number,
@@ -79,10 +116,10 @@ export async function getSuggestedFood(
 
 export async function getAllFoods() {
   const querySnapshot = await getDocs(collection(db, 'ご飯'));
-  const res: detailWithId[] = [];
+  const res: foodDetail[] = [];
   querySnapshot.forEach((doc) => {
     const detail = doc.data() as foodDetail;
-    res.push({ id: doc.id, detail: detail });
+    res.push(detail);
   });
 
   return res;

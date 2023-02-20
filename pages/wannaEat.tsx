@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import { useState, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
+
+import Main from '../moleculs/wannaEat/main';
 import styles from '../styles/wannaEat.module.css';
 import { getSubFoodWithSort, getRiceVol, getFoodWithType } from '../utils/get';
 import { setTodayFood } from '../utils/set';
@@ -57,6 +59,11 @@ const WannaEat: NextPage = () => {
     }
   };
 
+  const onClickMain = (detail: foodDetail) => {
+    setMenu(() => ({ メイン: detail }));
+    setCurrentVariety('副菜');
+  };
+
   const onLoad = async () => {
     setIsLoading(true);
     const res = await getFoodWithType('メイン');
@@ -69,39 +76,7 @@ const WannaEat: NextPage = () => {
   }, []);
 
   if (currentVariety === 'メイン') {
-    return (
-      <div id="text" className={styles.wrapper}>
-        <div className={styles.border1}></div>
-        <h1 className={styles.tabetaimono}>食べたいものはなんですか？</h1>
-        <div className={styles.border2}></div>
-        {!isLoading ? (
-          <div className={styles.foodsWrapper}>
-            {main.map((detail, index) => (
-              <div
-                key={index}
-                onClick={() => {
-                  setMenu(() => ({ メイン: detail }));
-                  setCurrentVariety('副菜');
-                }}
-              >
-                <Image
-                  className={styles.graphy}
-                  src={detail['URL']}
-                  alt="力士"
-                  width={200}
-                  height={200}
-                />
-                <h1 className={styles.foodname}>{detail['名前']}</h1>
-              </div>
-            ))}
-            <div className={styles.left}>^</div>
-            <div className={styles.right}>^</div>
-          </div>
-        ) : (
-          <Loading />
-        )}
-      </div>
-    );
+    return <Main main={main} isLoading={isLoading} onClick={onClickMain} />;
   } else if (currentVariety === '副菜') {
     getSub();
     return (

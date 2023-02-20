@@ -1,7 +1,6 @@
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import firestore from 'firebase/firestore';
 import { db } from './firebase';
-import { suggestFoods } from './testData';
 import {
   foodDetail,
   detailWithDate,
@@ -47,6 +46,12 @@ function getDiff(a: number, b: number): number {
   }
 }
 
+export async function getFoodWithType(type: foodTypes): Promise<foodDetail[]> {
+  const allFood = await getAllFoods();
+  const res = allFood.filter((food) => food['分類'] === type);
+  return res;
+}
+
 // compareFoodsのご飯を考慮しておかずを提案。
 export async function getSubFoodWithSort(
   user: User,
@@ -85,10 +90,8 @@ export async function getSubFoodWithSort(
   );
 
   const sortBy = nutritionCandidate[maxIndex];
-  const foods = await getAllFoods();
-
-  const filteredFoods = foods.filter((food) => food['分類'] === type);
-  const res = filteredFoods
+  const filteredFood = await getFoodWithType(type);
+  const res = filteredFood
     .sort((a, b) => a[sortBy] - b[sortBy])
     .slice(0, count);
 

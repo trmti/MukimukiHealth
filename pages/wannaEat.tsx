@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
 import styles from '../styles/wannaEat.module.css';
-import { getAllFoods, getSubFoodWithSort, getRiceVol } from '../utils/get';
+import { getSubFoodWithSort, getRiceVol, getFoodWithType } from '../utils/get';
+import { setTodayFood } from '../utils/set';
+
 import { useRouter } from 'next/router';
 
 import { useAuthContext } from '../utils/AuthContext';
@@ -19,7 +21,7 @@ type Menus = {
 };
 
 const WannaEat: NextPage = () => {
-  const { firebaseUser } = useAuthContext();
+  const { user, firebaseUser } = useAuthContext();
 
   const [main, setMain] = useState<foodDetail[]>([]);
   const [sub, setSub] = useState<foodDetail[]>([]);
@@ -57,7 +59,7 @@ const WannaEat: NextPage = () => {
 
   const onLoad = async () => {
     setIsLoading(true);
-    const res = await getAllFoods();
+    const res = await getFoodWithType('メイン');
     setMain(res);
     setIsLoading(false);
   };
@@ -139,6 +141,7 @@ const WannaEat: NextPage = () => {
                   };
               });
               if (
+                user &&
                 firebaseUser &&
                 menu &&
                 menu['メイン'] &&
@@ -159,6 +162,12 @@ const WannaEat: NextPage = () => {
                       主食: rice,
                     };
                 });
+                await setTodayFood(user, [
+                  menu['メイン'],
+                  menu['副菜'],
+                  menu['汁物'],
+                  rice,
+                ]);
                 setCurrentVariety('提案');
               }
             }}

@@ -33,13 +33,25 @@ const WannaEat: NextPage = () => {
 
   const getSub = async () => {
     if (firebaseUser && menu && menu['メイン']) {
-      const data = await getSubFoodWithSort(firebaseUser, menu['メイン'], 3);
+      const data = await getSubFoodWithSort(
+        firebaseUser,
+        [menu['メイン']],
+        '副菜',
+        3
+      );
       setSub(data);
     }
   };
 
   const getSoup = async () => {
-    if (firebaseUser && menu && menu['メイン']) {
+    if (firebaseUser && menu && menu['メイン'] && menu['副菜']) {
+      const data = await getSubFoodWithSort(
+        firebaseUser,
+        [menu['メイン'], menu['副菜']],
+        '汁物',
+        3
+      );
+      setSoup(data);
     }
   };
 
@@ -92,6 +104,7 @@ const WannaEat: NextPage = () => {
     getSub();
     return (
       <div>
+        <h1>副菜</h1>
         {sub.map((detail, index) => (
           <div
             key={index}
@@ -110,7 +123,30 @@ const WannaEat: NextPage = () => {
     );
   } else if (currentVariety === '汁物') {
     getSoup();
-    return <></>;
+    return (
+      <div>
+        <h1>汁物</h1>
+        {soup.map((detail, index) => (
+          <div
+            key={index}
+            onClick={() => {
+              setMenu((prev) => {
+                if (prev)
+                  return {
+                    メイン: prev['メイン'],
+                    副菜: prev['副菜'],
+                    汁物: detail,
+                  };
+              });
+              setCurrentVariety('汁物');
+            }}
+          >
+            <Image src={detail['URL']} width={500} height={500} alt="ご飯" />
+            <p>{detail['名前']}</p>
+          </div>
+        ))}
+      </div>
+    );
   } else if (currentVariety === 'ご飯') {
     return <></>;
   } else {

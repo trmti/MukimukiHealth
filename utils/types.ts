@@ -30,7 +30,7 @@ export type User = {
   体重: number;
   身長: number;
   次のご飯: detailWithRef;
-  理想体型: food;
+  理想体型: idealNames;
   目標栄養素: {
     カロリー: number;
     タンパク質: number;

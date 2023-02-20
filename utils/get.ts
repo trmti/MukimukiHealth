@@ -104,7 +104,7 @@ export async function getRiceVol(
   foods: foodDetail[]
 ): Promise<foodDetail> {
   const allFood = await getAllFoods();
-  const res = allFood.filter((food) => food['名前'] === 'ご飯（中');
+  const res = allFood.filter((food) => food['名前'] === 'ご飯（大）');
   return res[0];
 }
 

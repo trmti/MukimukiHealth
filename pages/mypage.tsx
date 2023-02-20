@@ -5,7 +5,7 @@ import { getFoodRecords, getTodayFood } from '../utils/get';
 import { record } from '../utils/types';
 import Image from 'next/image';
 import Loading from '../atoms/Loading';
-import styles from "../styles/mypage.module.css";
+import styles from '../styles/mypage.module.css';
 import { useAuthContext } from '../utils/AuthContext';
 import Logout from './logout';
 
@@ -25,35 +25,37 @@ const MyPage: NextPage = () => {
   }
   useEffect(() => {
     updateFoodRecord();
-  }, [user])
+  }, [user]);
 
   return (
     <>
       <div className={styles.header}>
         <h1 className={styles.M2H}>M2H</h1>
       </div>
+      <div className={styles.nanitaberu}>
+        <h1>なにたべる？</h1>
+        <div>
+          <button
+            onClick={() => {
+              router.push('/wannaEat');
+            }}
+          >
+            <img src="Vector_restored.jpeg" width={250} height={70} />
+          </button>
+        </div>
+      </div>
 
-      {!isLoading && foodRecords.length !== 0 ?
+      {!isLoading && foodRecords.length !== 0 ? (
         <div className={styles.wrapper}>
-          <div className={styles.nanitaberu}>
-            <h1>なにたべる？</h1>
-            <div>
-              <button
-                onClick={() => {
-                  router.push('/wannaEat');
-                }}
-              >
-                <img src="Vector_restored.jpeg" width={250} height={70} />
-              </button>
-            </div>
-          </div>
           <hr className={styles.border1} />
           <h1 className={styles.rireki}>食事履歴</h1>
           <div className={styles.record}>
             {foodRecords.map((foodRecord, index) => {
-              const url = foodRecord['食べたもの'].find((detail) => detail["分類"] == "メイン")
+              const url = foodRecord['食べたもの'].find(
+                (detail) => detail['分類'] == 'メイン'
+              );
               if (url) {
-                const background = "url(" + url["URL"] + ")";
+                const background = 'url(' + url['URL'] + ')';
                 return (
                   <div
                     className={styles.eachDate}
@@ -61,7 +63,7 @@ const MyPage: NextPage = () => {
                     style={{ backgroundImage: background }}
                   >
                     <div className={styles.overlay}></div>
-                    <div className={styles.detail} >
+                    <div className={styles.detail}>
                       <p className={styles.date}>
                         {
                           foodRecord['日付']
@@ -71,20 +73,24 @@ const MyPage: NextPage = () => {
                         }
                       </p>
                       {foodRecord['食べたもの'].map((detail, index) => {
-                        return <p className={styles.eachFood}>{detail['名前']}</p>
+                        return (
+                          <p className={styles.eachFood}>{detail['名前']}</p>
+                        );
                       })}
                     </div>
                   </div>
-                )
+                );
               } else {
-                return <></>
+                return <></>;
               }
             })}
           </div>
-        </div> : <Loading />
-      }
+        </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
-}
+};
 
 export default MyPage;

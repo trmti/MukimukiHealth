@@ -2,14 +2,14 @@ import firestore from 'firebase/firestore';
 
 export type food = {
   // 主な栄養
-  カロリー: number;
-  タンパク質: number;
-  脂質: number;
-  炭水化物: number;
-  糖質: number;
-  赤: number;
-  黃色: number;
-  緑: number;
+  カロリー?: number;
+  タンパク質?: number;
+  脂質?: number;
+  炭水化物?: number;
+  糖質?: number;
+  赤?: number;
+  黃色?: number;
+  緑?: number;
 };
 
 export type food_tanni = {
@@ -91,4 +91,11 @@ export type ideal = {
 export type record = {
   日付: firestore.Timestamp;
   食べたもの: foodDetail[];
+};
+
+export type Menus = {
+  メイン?: foodDetail;
+  副菜?: foodDetail;
+  汁物?: foodDetail;
+  ご飯?: foodDetail;
 };

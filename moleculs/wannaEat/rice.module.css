@@ -1,0 +1,24 @@
+.wrapper {
+  text-align: center;
+  font-size: 24px;
+}
+
+.text {
+  letter-spacing: 8px;
+}
+.text > span {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.foodWrapper {
+  text-align: center;
+  margin-top: 80px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.imageWrapper {
+  width: calc(30% - 30px);
+  display: inline-block;
+}

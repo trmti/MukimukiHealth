@@ -1,7 +1,7 @@
-import type { NextPage } from 'next';
-import { record } from '../../utils/types';
-import Loading from '../../atoms/Loading';
-import styles from './index.module.css';
+import type { NextPage } from "next";
+import { record } from "../../utils/types";
+import Loading from "../../atoms/Loading";
+import styles from "./index.module.css";
 
 type Props = {
   isLoading: boolean;
@@ -12,54 +12,54 @@ type Props = {
 const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
   return (
     <>
-      <div className={styles.header}>
-        <h1 className={styles.M2H}>M2H</h1>
-      </div>
-      <div className={styles.nanitaberu}>
-        <h1>なにたべる？</h1>
-        <div>
-          <button onClick={onClick}>
-            <img src="Vector_restored.jpeg" width={250} height={70} />
-          </button>
-        </div>
+      <div>
+        <h1 className={styles.mypage}>マイページ</h1>
+        <div></div>
       </div>
 
       {!isLoading ? (
         <div className={styles.wrapper}>
-          <hr className={styles.border1} />
           {foodRecords.length !== 0 ? (
-            <div>
-              <h1 className={styles.rireki}>食事履歴</h1>
+            <div className={styles.total_flex}>
               <div className={styles.record}>
+                <h2 className={styles.anatanosyokuji}>食事履歴</h2>
                 {foodRecords.map((foodRecord, index) => {
-                  const url = foodRecord['食べたもの'].find(
-                    (detail) => detail['分類'] == 'メイン'
+                  let energy: number = 0;
+                  let tannpakusitu: number = 0;
+                  let sisitu: number = 0;
+                  let tannsuikabutu: number = 0;
+                  const url = foodRecord["食べたもの"].find(
+                    (detail) => detail["分類"] == "メイン"
                   );
                   if (url) {
-                    const background = 'url(' + url['URL'] + ')';
                     return (
-                      <div
-                        className={styles.eachDate}
-                        key={index}
-                        style={{ backgroundImage: background }}
-                      >
-                        <div className={styles.overlay}></div>
+                      <div key={index}>
                         <div className={styles.detail}>
-                          <p className={styles.date}>
-                            {
-                              foodRecord['日付']
-                                .toDate()
-                                .toLocaleString('ja-JP')
-                                .split(' ')[0]
-                            }
-                          </p>
-                          {foodRecord['食べたもの'].map((detail, index) => {
-                            return (
-                              <p className={styles.eachFood}>
-                                {detail['名前']}
-                              </p>
-                            );
-                          })}
+                          <div className={styles.date}>
+                            <p>
+                              {
+                                foodRecord["日付"]
+                                  .toDate()
+                                  .toLocaleString("ja-JP")
+                                  .split(" ")[0]
+                              }
+                            </p>
+                          </div>
+
+                          <div className={styles.ryouri_flex}>
+                            {foodRecord["食べたもの"].map((detail, index) => {
+                              return (
+                                <div key={index} className={styles.eachFood}>
+                                  <img
+                                    src={detail["URL"]}
+                                    width={100}
+                                    height={100}
+                                  />
+                                </div>
+                              );
+                            })}
+                            {console.log(energy)}
+                          </div>
                         </div>
                       </div>
                     );
@@ -68,10 +68,20 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
                   }
                 })}
               </div>
+              <img
+                className={styles.human}
+                src="rikishi.png"
+                width={500}
+                height={500}
+              />
             </div>
           ) : (
             <></>
           )}
+          <button onClick={onClick} className={styles.btn}>
+            {console.log(foodRecords)}
+            食べるものを決める!
+          </button>
         </div>
       ) : (
         <Loading />

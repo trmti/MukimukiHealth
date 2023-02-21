@@ -96,7 +96,6 @@ const WannaEat: NextPage = () => {
     if (user?.email) {
       onSnapshot(doc(db, 'User', user.email), (doc) => {
         const data = doc.data() as unknown as User;
-        console.log(data);
         if (data['次のご飯']) {
           setFinish(true);
         }
@@ -146,8 +145,9 @@ const WannaEat: NextPage = () => {
             <Header
               text={`${date[0]}/${date[1]}/${date[2].split('T')[0]
                 }${duration}飯`}
+              text2="今日は何の気分?"
             />
-            {(((): ReactNode => {
+            {((): ReactNode => {
               if (currentVariety === 'メイン') {
                 return (
                   <Main main={main} isLoading={isLoading} onClick={onClickMain} />
@@ -161,7 +161,7 @@ const WannaEat: NextPage = () => {
               } else {
                 return <Rice rice={rice} onClick={onClickRice} />;
               }
-            })())}
+            })()}
             <button onClick={onClickBack}>戻る</button>
           </div>) : <Loading />}
       </div>

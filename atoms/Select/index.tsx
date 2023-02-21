@@ -2,19 +2,11 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { foodDetail, nutritionTypes } from '../../utils/types';
+import { getSum } from '../../utils/utilFuncs';
 import styles from './index.module.css';
 
 type Props = {
   selected?: foodDetail[];
-};
-
-const getSum = (foods: foodDetail[], type: nutritionTypes) => {
-  const init = 0;
-  const res = foods.reduce((sum, current) => {
-    // @ts-ignore
-    return sum + current[type];
-  }, init);
-  return res;
 };
 
 const Select: NextPage<Props> = ({ selected = [] }) => {

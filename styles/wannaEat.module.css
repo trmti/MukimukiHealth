@@ -23,6 +23,12 @@
   margin-top: 0;
 }
 
+.textWrapper {
+  text-align: center;
+  font-weight: normal;
+  font-size: 24px;
+}
+
 .leftContent>button {
   display: block;
   margin: 20px auto;

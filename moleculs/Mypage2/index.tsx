@@ -1,80 +1,69 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
-import { ReactNode } from 'react';
-import { detailWithDate, food, food_tanni } from '../../utils/types';
-import Button from '../../atoms/Button';
-import styles from './index.module.css';
+import { useState, useEffect } from 'react';
 
-const food_unit: food_tanni = {
-  カロリー: 'kcal',
-  タンパク質: 'g',
-  脂質: 'g',
-  炭水化物: 'g',
-  糖質: 'g',
-  食物繊維: 'g',
-};
+import { detailWithDate } from '../../utils/types';
+import { getSum } from '../../utils/utilFuncs';
+
+import Button from '../../atoms/Button';
+import Header from '../../atoms/Header';
+import ImageWithText from '../../atoms/ImageWithText';
+import styles from './index.module.css';
 
 type Props = {
   todayFood: detailWithDate;
-  food_index: number;
-  indexreducer: () => void;
-  indexincreser: () => void;
   onClick: () => Promise<void>;
 };
 
-const Mypage2: NextPage<Props> = ({
-  todayFood,
-  food_index,
-  indexreducer,
-  indexincreser,
-  onClick,
-}) => {
+const Mypage2: NextPage<Props> = ({ todayFood, onClick }) => {
+  const [calorie, setCalorie] = useState<number>();
+  const [protein, setProtein] = useState<number>();
+  const [lipid, setLipid] = useState<number>();
+  const [carbohydrate, setCarbohydrate] = useState<number>();
+
+  useEffect(() => {
+    setCalorie(Math.floor(getSum(todayFood['ご飯'], 'カロリー')));
+    setProtein(Math.floor(getSum(todayFood['ご飯'], 'タンパク質')));
+    setLipid(Math.floor(getSum(todayFood['ご飯'], '脂質')));
+    setCarbohydrate(Math.floor(getSum(todayFood['ご飯'], '炭水化物')));
+  }, [todayFood]);
+  const timeConvertCriteria = [5, 10, 16];
+
+  const now = new Date();
+  const date = now.toISOString().split('-');
+  const time = now.toISOString().split('T')[1];
+  const hour = Number(time.split(':')[0]);
+  let duration;
+
+  if (hour > timeConvertCriteria[2]) {
+    duration = '夜';
+  } else if (hour > timeConvertCriteria[1]) {
+    duration = '昼';
+  } else if (hour > timeConvertCriteria[0]) {
+    duration = '朝';
+  } else {
+    duration = '夜';
+  }
   return (
     <>
-      <h1 className={styles.kyougohan}>今日のご飯はこれ！</h1>
-      <div className={styles.fooddisplay}>
-        <div className={styles.describe}>
-          <p className={styles.foodname}>
-            {todayFood['ご飯'][food_index]['名前']}
-          </p>
-          {((): ReactNode => {
-            return (
-              Object.keys(
-                todayFood['ご飯'][food_index]
-              ) as unknown as (keyof food)[]
-            ).map((key, index) => (
-              <div className={styles.foodeiyou} key={index}>
-                <p>
-                  {key}: {todayFood['ご飯'][food_index][key]}
-                  {food_unit[key]}
-                </p>
-              </div>
-            ));
-          })()}
-        </div>
-        <div>
-          <Image
-            className={styles.photo}
-            src={todayFood['ご飯'][food_index]['URL']}
-            width={450}
-            height={450}
-            alt="飯"
-          />
-        </div>
-        <button className={styles.left} onClick={indexreducer}>
-          ^
-        </button>
-        <button className={styles.right} onClick={indexincreser}>
-          ^
-        </button>
+      <Header
+        text={`${date[0]}/${date[1]}/${date[2].split('T')[0]}　${duration}飯`}
+        text2="今日の食事メニューはこちら！"
+      />
+      <div className={styles.foodsWrapper}>
+        {todayFood['ご飯'].map((food) => (
+          <div className={styles.foodWrapper}>
+            <ImageWithText food={food} />
+          </div>
+        ))}
       </div>
-      <div className={styles.tabeta}>
-        <Button
-          text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;食べた！"
-          color="#3F8757"
-          onClick={onClick}
-        />
-        <img className={styles.tabetayo} src="/tabeta.png" />
+      <div className={styles.energies}>
+        <p>エネルギー: {calorie}kcal</p>
+        <p>タンパク質: {protein}g</p>
+        <p>脂質: {lipid}g</p>
+        <p>炭水化物: {carbohydrate}g</p>
+      </div>
+      <div className={styles.btnWrapper}>
+        <Button text="食べた！" color="#6F6F6F" onClick={onClick} />
       </div>
     </>
   );

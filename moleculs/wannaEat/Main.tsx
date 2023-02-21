@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { foodDetail } from '../../utils/types';
 import ImageWithText from '../../atoms/ImageWithText';
 import Array from '../../atoms/Array';
+import Modal from '../../atoms/Modal';
 
 import styles from './main.module.css';
 import Loading from '../../atoms/Loading';
@@ -16,6 +17,8 @@ type Props = {
 const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [displayFoods, setDisplayFoods] = useState<foodDetail[]>();
+  const [selectedFoods, setSelectedFoods] = useState<foodDetail>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const onClickLeft = () => {
     if (currentPage != 0) {
@@ -49,7 +52,8 @@ const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
                     className={styles.foods}
                     key={index}
                     onClick={() => {
-                      onClick(food);
+                      setSelectedFoods(food);
+                      setModalVisible(true);
                     }}
                   >
                     <ImageWithText food={food} />
@@ -60,6 +64,20 @@ const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
             </div>
           </div>
         </div>
+        {modalVisible ? (
+          <Modal
+            food={selectedFoods}
+            onClickOk={() => {
+              if (selectedFoods) onClick(selectedFoods);
+              setModalVisible(false);
+            }}
+            onClickCancel={() => {
+              setModalVisible(false);
+            }}
+          />
+        ) : (
+          <></>
+        )}
       </>
     );
   } else {

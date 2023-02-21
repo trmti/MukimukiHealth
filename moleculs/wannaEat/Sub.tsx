@@ -7,10 +7,11 @@ import { foodDetail } from '../../utils/types';
 
 type Props = {
   sub: foodDetail[];
+  isLoading: boolean;
   onClick: (detail: foodDetail) => void;
 };
 
-const Sub: NextPage<Props> = ({ sub, onClick }) => {
+const Sub: NextPage<Props> = ({ sub, isLoading, onClick }) => {
   return (
     <div className={styles.wrapper}>
       <p>

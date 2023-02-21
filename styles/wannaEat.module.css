@@ -9,6 +9,7 @@
   display: inline-block;
   flex-basis: 80%;
 }
+
 .btnWrapper {
   text-align: right;
 }
@@ -20,4 +21,16 @@
   flex-basis: 20%;
   min-height: 100vh;
   margin-top: 0;
+}
+
+.leftContent>button {
+  display: block;
+  margin: 20px auto;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(48, 47, 47);
+  border-radius: 20px;
 }

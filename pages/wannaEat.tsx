@@ -19,6 +19,7 @@ import { useAuthContext } from '../utils/AuthContext';
 import { foodDetail, User } from '../utils/types';
 
 import styles from '../styles/wannaEat.module.css';
+import Loading from '../atoms/Loading';
 
 type variety = 'メイン' | '副菜' | '汁物' | 'ご飯';
 
@@ -80,15 +81,18 @@ const WannaEat: NextPage = () => {
   };
 
   const onClickSoup = async (detail: foodDetail) => {
+    setIsLoading(true);
     setMenu((prev) => [...prev, detail]);
     if (user && firebaseUser && menu) {
       const rice = await getRiceVol(firebaseUser, menu);
       setRice([rice]);
     }
     setCurrentVariety('ご飯');
+    setIsLoading(false);
   };
 
   const onClickRice = async (detail: foodDetail) => {
+    setIsLoading(true);
     if (user?.email) {
       onSnapshot(doc(db, 'User', user.email), (doc) => {
         const data = doc.data() as unknown as User;
@@ -100,6 +104,23 @@ const WannaEat: NextPage = () => {
       console.log(menu);
       await setTodayFood(user, [...menu, detail]);
     }
+    setIsLoading(false);
+  };
+
+  const onClickBack = () => {
+    if (currentVariety == "メイン") {
+      router.push('/mypage');
+    } else if (currentVariety == "副菜") {
+      menu.pop();
+      setCurrentVariety("メイン")
+    } else if (currentVariety == "汁物") {
+      menu.pop();
+      setCurrentVariety("副菜")
+    } else if (currentVariety == "ご飯") {
+      menu.pop();
+      setCurrentVariety("汁物")
+    }
+    console.log(menu);
   };
 
   const onLoad = async () => {
@@ -120,28 +141,29 @@ const WannaEat: NextPage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left}>
-        <div className={styles.leftContent}>
-          <Header
-            text={`${date[0]}/${date[1]}/${
-              date[2].split('T')[0]
-            }　${duration}飯`}
-          />
-          {((): ReactNode => {
-            if (currentVariety === 'メイン') {
-              return (
-                <Main main={main} isLoading={isLoading} onClick={onClickMain} />
-              );
-            } else if (currentVariety === '副菜') {
-              getSub();
-              return <Sub sub={sub} onClick={onClickSub} />;
-            } else if (currentVariety === '汁物') {
-              getSoup();
-              return <Soup soup={soup} onClick={onClickSoup} />;
-            } else {
-              return <Rice rice={rice} onClick={onClickRice} />;
-            }
-          })()}
-        </div>
+        {!isLoading ? (
+          <div className={styles.leftContent}>
+            <Header
+              text={`${date[0]}/${date[1]}/${date[2].split('T')[0]
+                }${duration}飯`}
+            />
+            {(((): ReactNode => {
+              if (currentVariety === 'メイン') {
+                return (
+                  <Main main={main} isLoading={isLoading} onClick={onClickMain} />
+                );
+              } else if (currentVariety === '副菜') {
+                getSub();
+                return <Sub sub={sub} isLoading={isLoading} onClick={onClickSub} />;
+              } else if (currentVariety === '汁物') {
+                getSoup();
+                return <Soup soup={soup} onClick={onClickSoup} />;
+              } else {
+                return <Rice rice={rice} onClick={onClickRice} />;
+              }
+            })())}
+            <button onClick={onClickBack}>戻る</button>
+          </div>) : <Loading />}
       </div>
       <div className={styles.rigtht}>
         <Select selected={menu} />

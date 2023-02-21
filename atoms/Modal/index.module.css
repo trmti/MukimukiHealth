@@ -1,0 +1,43 @@
+.wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: calc(50% - 100px);
+  top: 50%;
+  width: 800px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.image {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  column-gap: 50px;
+  justify-content: center;
+}
+
+.image img {
+  width: 30%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 1;
+  border-radius: 10px;
+}
+
+.wrapper button {
+  font-size: 24px;
+  background-color: #6f6f6f;
+  color: white;
+  border-radius: 5px;
+  margin-top: 50px;
+  margin-left: 30px;
+  padding: 5px 30px;
+}

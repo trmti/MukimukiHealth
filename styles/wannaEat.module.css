@@ -21,3 +21,9 @@
   min-height: 100vh;
   margin-top: 0;
 }
+
+.textWrapper {
+  text-align: center;
+  font-weight: normal;
+  font-size: 24px;
+}

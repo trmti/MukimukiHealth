@@ -4,6 +4,7 @@ import ImageWithText from '../../atoms/ImageWithText';
 import { foodDetail } from '../../utils/types';
 import styles from './soup.module.css';
 import Modal from '../../atoms/Modal';
+import Filter from '../../atoms/Filter';
 
 type Props = {
   soup: foodDetail[];
@@ -16,6 +17,8 @@ const Home: NextPage<Props> = ({ soup, onClick }) => {
 
   return (
     <div className={styles.wrapper}>
+      {modalVisible ? <Filter /> : <></>}
+
       <p>
         理想体型に基づく摂取目標栄養素料をもとに
         <br />

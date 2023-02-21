@@ -1,78 +1,37 @@
 .wrapper {
-  text-align: center;
-  margin: 70px auto 0 auto;
-  width: 80vw;
-}
-
-.border1 {
-  position: absolute;
-  width: 1536px;
-  height: 0px;
-  left: 0px;
-  right: 0px;
-  top: 10px;
-  border: 3px solid #ffff66;
-}
-.tabetaimono {
-  font-family: 'MS PMincho';
-  color: #080808;
-  font-size: 70px !important;
-  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
-    -1px -1px 0 #091011;
-}
-
-.border2 {
-  position: absolute;
-  width: 1536px;
-  height: 0px;
-  left: 0px;
-  right: 0px;
-  top: 196px;
-  border: 3px solid #ffff66;
+  width: 100%;
 }
 
 .foodsWrapper {
   display: flex;
-  margin: 200px auto 30px;
-  justify-content: space-around;
   flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 50px;
 }
 
-.graphy {
-  padding: 2px;
-  border: 5px solid #e8bf85;
-  box-shadow: 1px 1px 3px #999;
+.foods {
+  width: calc(100% / 3 - 30px);
 }
 
-.foodname {
-  font-family: 'MS PMincho';
-  background: linear-gradient(transparent 60%, #ffff66 60%);
+.contentWrapper {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.left {
-  font-size: 77px;
-  position: absolute;
-  border: 2px solid #000000;
-  background-color: white;
-  transform: rotate(270deg);
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  left: 26px;
-  top: 416px;
-  font-weight: 100;
+.contents {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
 }
 
-.right {
-  font-size: 77px;
-  position: absolute;
-  border: 2px solid #000000;
-  background-color: white;
-  transform: rotate(90deg);
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  right: 26px;
-  top: 416px;
-  font-weight: 100;
+.text {
+  font-weight: normal;
+  font-size: 24px;
+  letter-spacing: 6px;
+}
+
+.text > span {
+  font-weight: bold;
+  font-size: 64px;
 }

@@ -1,5 +1,10 @@
 import type { NextPage } from 'next';
-import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useState, useEffect, ReactNode } from 'react';
+
+import Select from '../atoms/Select';
+import Header from '../atoms/Header';
+import Button from '../atoms/Button';
 
 import Main from '../moleculs/wannaEat/Main';
 import Sub from '../moleculs/wannaEat/Sub';
@@ -7,20 +12,12 @@ import Soup from '../moleculs/wannaEat/Soup';
 
 import { getSubFoodWithSort, getRiceVol, getFoodWithType } from '../utils/get';
 import { setTodayFood } from '../utils/set';
-
-import { useRouter } from 'next/router';
-
 import { useAuthContext } from '../utils/AuthContext';
+import { foodDetail, Menus } from '../utils/types';
 
-import { foodDetail } from '../utils/types';
+import styles from '../styles/wannaEat.module.css';
 
 type variety = 'メイン' | '副菜' | '汁物' | '提案';
-type Menus = {
-  メイン?: foodDetail;
-  副菜?: foodDetail;
-  汁物?: foodDetail;
-  ご飯?: foodDetail;
-};
 
 const WannaEat: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
@@ -32,6 +29,24 @@ const WannaEat: NextPage = () => {
   const [currentVariety, setCurrentVariety] = useState<variety>('メイン');
 
   const [menu, setMenu] = useState<Menus>();
+
+  const timeConvertCriteria = [5, 10, 16];
+
+  const now = new Date();
+  const date = now.toISOString().split('-');
+  const time = now.toISOString().split('T')[1];
+  const hour = Number(time.split(':')[0]);
+  let duration;
+
+  if (hour > timeConvertCriteria[2]) {
+    duration = '夜';
+  } else if (hour > timeConvertCriteria[1]) {
+    duration = '昼';
+  } else if (hour > timeConvertCriteria[0]) {
+    duration = '朝';
+  } else {
+    duration = '夜';
+  }
 
   const router = useRouter();
 
@@ -80,34 +95,22 @@ const WannaEat: NextPage = () => {
           汁物: detail,
         };
     });
-    if (
-      user &&
-      firebaseUser &&
-      menu &&
-      menu['メイン'] &&
-      menu['副菜'] &&
-      menu['汁物']
-    ) {
+    if (user && firebaseUser && menu && menu['メイン'] && menu['副菜']) {
       const rice = await getRiceVol(firebaseUser, [
         menu['メイン'],
         menu['副菜'],
-        menu['汁物'],
+        detail,
       ]);
       setMenu((prev) => {
         if (prev)
           return {
             メイン: prev['メイン'],
             副菜: prev['副菜'],
-            汁物: prev['汁物'],
+            汁物: detail,
             主食: rice,
           };
       });
-      await setTodayFood(user, [
-        menu['メイン'],
-        menu['副菜'],
-        menu['汁物'],
-        rice,
-      ]);
+      await setTodayFood(user, [menu['メイン'], menu['副菜'], detail, rice]);
       router.push('/mypage2');
     }
   };
@@ -123,17 +126,40 @@ const WannaEat: NextPage = () => {
     onLoad();
   }, []);
 
-  if (currentVariety === 'メイン') {
-    return <Main main={main} isLoading={isLoading} onClick={onClickMain} />;
-  } else if (currentVariety === '副菜') {
-    getSub();
-    return <Sub sub={sub} onClick={onClickSub} />;
-  } else if (currentVariety === '汁物') {
-    getSoup();
-    return <Soup soup={soup} onClick={onClickSoup} />;
-  } else {
-    return <></>;
-  }
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.left}>
+        <div className={styles.leftContent}>
+          <Header
+            text={`${date[0]}/${date[1]}/${
+              date[2].split('T')[0]
+            }　${duration}飯`}
+          />
+          {((): ReactNode => {
+            if (currentVariety === 'メイン') {
+              return (
+                <Main main={main} isLoading={isLoading} onClick={onClickMain} />
+              );
+            } else if (currentVariety === '副菜') {
+              getSub();
+              return <Sub sub={sub} onClick={onClickSub} />;
+            } else if (currentVariety === '汁物') {
+              getSoup();
+              return <Soup soup={soup} onClick={onClickSoup} />;
+            } else {
+              return <></>;
+            }
+          })()}
+        </div>
+      </div>
+      <div className={styles.rigtht}>
+        <Select selected={menu} />
+        <div className={styles.btnWrapper}>
+          <button>次へ進む</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default WannaEat;

@@ -16,7 +16,6 @@ const Ideal: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async (name: idealNames) => {
-    console.log(name);
     if (user?.email && firebaseUser) {
       if (name === '力士') {
         await setGoals(user.email, 4000, 0, 0, 0, 0, '力士', 2);

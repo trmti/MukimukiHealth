@@ -1,0 +1,23 @@
+.wrapper {
+  text-align: center;
+  vertical-align: top;
+  display: flex;
+}
+
+.left {
+  text-align: left;
+  display: inline-block;
+  flex-basis: 80%;
+}
+.btnWrapper {
+  text-align: right;
+}
+
+.rigtht {
+  background-color: rgba(206, 207, 206, 1);
+  display: inline-block;
+  text-align: left;
+  flex-basis: 20%;
+  min-height: 100vh;
+  margin-top: 0;
+}

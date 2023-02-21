@@ -20,14 +20,10 @@ const MyPage2: NextPage = () => {
 
   async function onLoad() {
     setIsLoading(true);
-    console.log(user, firebaseUser);
     if (user?.email && firebaseUser) {
       const res = await getTodayFood(firebaseUser);
       if (user && res) {
         setTodayFood(res);
-      } else {
-        alert('mypageに移動します');
-        router.push('/mypage');
       }
     }
     setIsLoading(false);
@@ -50,7 +46,7 @@ const MyPage2: NextPage = () => {
 
   function indexincreser() {
     if (todayFood != undefined) {
-      let food_length: number = Object.keys(todayFood).length;
+      let food_length: number = Object.keys(todayFood['ご飯']).length;
       if (food_index != food_length - 1) {
         setIndex(food_index + 1);
       } else {
@@ -60,7 +56,9 @@ const MyPage2: NextPage = () => {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     onLoad();
+    setIsLoading(false);
   }, [firebaseUser]);
 
   if (todayFood != undefined && !isLoading) {

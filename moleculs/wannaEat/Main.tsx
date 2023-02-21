@@ -1,6 +1,9 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { foodDetail } from '../../utils/types';
+import ImageWithText from '../../atoms/ImageWithText';
+import Array from '../../atoms/Array';
+
 import styles from './main.module.css';
 import Loading from '../../atoms/Loading';
 
@@ -11,42 +14,57 @@ type Props = {
 };
 
 const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
-  return (
-    <>
-      <div id="text" className={styles.wrapper}>
-        <div className={styles.border1}></div>
-        <h1 className={styles.tabetaimono}>食べたいものはなんですか？</h1>
-        <div className={styles.border2}></div>
-        {!isLoading ? (
-          <div className={styles.foodsWrapper}>
-            {main.map((detail, index) => (
-              <div
-                key={index}
-                onClick={() => {
-                  onClick(detail);
-                }}
-              >
-                <Image
-                  className={styles.graphy}
-                  src={detail['URL']}
-                  alt="力士"
-                  width={200}
-                  height={200}
-                />
-                <h1 className={styles.foodname}>{detail['名前']}</h1>
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [displayFoods, setDisplayFoods] = useState<foodDetail[]>();
+
+  const onClickLeft = () => {
+    if (currentPage != 0) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const onClickRight = () => {
+    if (currentPage != Math.floor(main.length / 6)) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    setDisplayFoods(main.slice(currentPage * 6, currentPage * 6 + 6));
+  }, [currentPage, main]);
+
+  if (!isLoading) {
+    return (
+      <>
+        <div className={styles.wrapper}>
+          <div className={styles.contentWrapper}>
+            <h1 className={styles.text}>
+              まずは<span>メイン</span>から選ぶ
+            </h1>
+            <div className={styles.contents}>
+              <Array rotate={180} onClick={onClickLeft} />
+              <div className={styles.foodsWrapper}>
+                {displayFoods?.map((food, index) => (
+                  <div
+                    className={styles.foods}
+                    key={index}
+                    onClick={() => {
+                      onClick(food);
+                    }}
+                  >
+                    <ImageWithText food={food} />
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className={styles.left}>^</div>
-            <div className={styles.right}>^</div>
+              <Array onClick={onClickRight} />
+            </div>
           </div>
-        ) : (
-          <>
-            <Loading />
-          </>
-        )}
-      </div>
-    </>
-  );
+        </div>
+      </>
+    );
+  } else {
+    return <Loading />;
+  }
 };
 
 export default Main;

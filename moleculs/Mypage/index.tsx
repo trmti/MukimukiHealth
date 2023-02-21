@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { record } from "../../utils/types";
 import Loading from "../../atoms/Loading";
 import styles from "./index.module.css";
+import { getSum } from "../../utils/utilFuncs";
 
 type Props = {
   isLoading: boolean;
@@ -24,10 +25,18 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
               <div className={styles.record}>
                 <h2 className={styles.anatanosyokuji}>食事履歴</h2>
                 {foodRecords.map((foodRecord, index) => {
-                  let energy: number = 0;
-                  let tannpakusitu: number = 0;
-                  let sisitu: number = 0;
-                  let tannsuikabutu: number = 0;
+                  const energy: number = Math.floor(
+                    getSum(foodRecord["食べたもの"], "カロリー")
+                  );
+                  const tannpakusitu: number = Math.floor(
+                    getSum(foodRecord["食べたもの"], "タンパク質")
+                  );
+                  const sisitu: number = Math.floor(
+                    getSum(foodRecord["食べたもの"], "脂質")
+                  );
+                  const tanpakusitu: number = Math.floor(
+                    getSum(foodRecord["食べたもの"], "炭水化物")
+                  );
                   const url = foodRecord["食べたもの"].find(
                     (detail) => detail["分類"] == "メイン"
                   );
@@ -58,8 +67,25 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
                                 </div>
                               );
                             })}
-                            {console.log(energy)}
                           </div>
+                          <table border="5" className={styles.tables}>
+                            <tr>
+                              <td>カロリー</td>
+                              <td>{energy}</td>
+                            </tr>
+                            <tr>
+                              <td>タンパク質</td>
+                              <td>{tannpakusitu}</td>
+                            </tr>
+                            <tr>
+                              <td>脂質</td>
+                              <td>{sisitu}</td>
+                            </tr>
+                            <tr>
+                              <td>炭水化物</td>
+                              <td>{tannpakusitu}</td>
+                            </tr>
+                          </table>
                         </div>
                       </div>
                     );

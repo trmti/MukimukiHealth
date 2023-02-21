@@ -1,0 +1,25 @@
+.wrapper {
+  text-align: center;
+  font-size: 24px;
+}
+
+.text {
+  letter-spacing: 8px;
+}
+.text > span {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.foodWrapper {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.imageWrapper {
+  width: calc(30% - 30px);
+}

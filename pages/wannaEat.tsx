@@ -2,22 +2,25 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, useEffect, ReactNode } from 'react';
 
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../utils/firebase';
+
 import Select from '../atoms/Select';
 import Header from '../atoms/Header';
-import Button from '../atoms/Button';
 
 import Main from '../moleculs/wannaEat/Main';
 import Sub from '../moleculs/wannaEat/Sub';
 import Soup from '../moleculs/wannaEat/Soup';
+import Rice from '../moleculs/wannaEat/Rice';
 
 import { getSubFoodWithSort, getRiceVol, getFoodWithType } from '../utils/get';
 import { setTodayFood } from '../utils/set';
 import { useAuthContext } from '../utils/AuthContext';
-import { foodDetail, Menus } from '../utils/types';
+import { foodDetail, User } from '../utils/types';
 
 import styles from '../styles/wannaEat.module.css';
 
-type variety = 'メイン' | '副菜' | '汁物' | '提案';
+type variety = 'メイン' | '副菜' | '汁物' | 'ご飯';
 
 const WannaEat: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
@@ -25,10 +28,12 @@ const WannaEat: NextPage = () => {
   const [main, setMain] = useState<foodDetail[]>([]);
   const [sub, setSub] = useState<foodDetail[]>([]);
   const [soup, setSoup] = useState<foodDetail[]>([]);
+  const [rice, setRice] = useState<foodDetail[]>([]);
+  const [finish, setFinish] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentVariety, setCurrentVariety] = useState<variety>('メイン');
 
-  const [menu, setMenu] = useState<Menus>();
+  const [menu, setMenu] = useState<foodDetail[]>([]);
 
   const timeConvertCriteria = [5, 10, 16];
 
@@ -51,67 +56,49 @@ const WannaEat: NextPage = () => {
   const router = useRouter();
 
   const getSub = async () => {
-    if (firebaseUser && menu && menu['メイン']) {
-      const data = await getSubFoodWithSort(
-        firebaseUser,
-        [menu['メイン']],
-        '副菜',
-        3
-      );
+    if (firebaseUser && menu) {
+      const data = await getSubFoodWithSort(firebaseUser, menu, '副菜', 3);
       setSub(data);
     }
   };
 
   const getSoup = async () => {
-    if (firebaseUser && menu && menu['メイン'] && menu['副菜']) {
-      const data = await getSubFoodWithSort(
-        firebaseUser,
-        [menu['メイン'], menu['副菜']],
-        '汁物',
-        3
-      );
+    if (firebaseUser && menu) {
+      const data = await getSubFoodWithSort(firebaseUser, menu, '汁物', 3);
       setSoup(data);
     }
   };
 
   const onClickMain = (detail: foodDetail) => {
-    setMenu(() => ({ メイン: detail }));
+    setMenu((prev) => [...prev, detail]);
     setCurrentVariety('副菜');
   };
 
   const onClickSub = (detail: foodDetail) => {
-    setMenu((prev) => {
-      if (prev) return { メイン: prev['メイン'], 副菜: detail };
-    });
+    setMenu((prev) => [...prev, detail]);
     setCurrentVariety('汁物');
   };
 
   const onClickSoup = async (detail: foodDetail) => {
-    setMenu((prev) => {
-      if (prev)
-        return {
-          メイン: prev['メイン'],
-          副菜: prev['副菜'],
-          汁物: detail,
-        };
-    });
-    if (user && firebaseUser && menu && menu['メイン'] && menu['副菜']) {
-      const rice = await getRiceVol(firebaseUser, [
-        menu['メイン'],
-        menu['副菜'],
-        detail,
-      ]);
-      setMenu((prev) => {
-        if (prev)
-          return {
-            メイン: prev['メイン'],
-            副菜: prev['副菜'],
-            汁物: detail,
-            主食: rice,
-          };
+    setMenu((prev) => [...prev, detail]);
+    if (user && firebaseUser && menu) {
+      const rice = await getRiceVol(firebaseUser, menu);
+      setRice([rice]);
+    }
+    setCurrentVariety('ご飯');
+  };
+
+  const onClickRice = async (detail: foodDetail) => {
+    if (user?.email) {
+      onSnapshot(doc(db, 'User', user.email), (doc) => {
+        const data = doc.data() as unknown as User;
+        console.log(data);
+        if (data['次のご飯']) {
+          setFinish(true);
+        }
       });
-      await setTodayFood(user, [menu['メイン'], menu['副菜'], detail, rice]);
-      router.push('/mypage2');
+      console.log(menu);
+      await setTodayFood(user, [...menu, detail]);
     }
   };
 
@@ -125,6 +112,10 @@ const WannaEat: NextPage = () => {
   useEffect(() => {
     onLoad();
   }, []);
+
+  useEffect(() => {
+    if (finish) router.push('/mypage2');
+  }, [finish]);
 
   return (
     <div className={styles.wrapper}>
@@ -147,16 +138,13 @@ const WannaEat: NextPage = () => {
               getSoup();
               return <Soup soup={soup} onClick={onClickSoup} />;
             } else {
-              return <></>;
+              return <Rice rice={rice} onClick={onClickRice} />;
             }
           })()}
         </div>
       </div>
       <div className={styles.rigtht}>
         <Select selected={menu} />
-        <div className={styles.btnWrapper}>
-          <button>次へ進む</button>
-        </div>
       </div>
     </div>
   );

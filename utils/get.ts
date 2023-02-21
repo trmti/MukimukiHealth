@@ -75,6 +75,7 @@ export async function getSubFoodWithSort(
   };
   compareFoods.map((food) => {
     nutritionCandidate.forEach((n) => {
+      // @ts-ignore
       nutritions[n] += food[n];
     });
   });
@@ -92,13 +93,13 @@ export async function getSubFoodWithSort(
   const sortBy = nutritionCandidate[maxIndex];
   const filteredFood = await getFoodWithType(type);
   const res = filteredFood
+    //@ts-ignore
     .sort((a, b) => a[sortBy] - b[sortBy])
     .slice(0, count);
 
   return res;
 }
 
-// ここに明石が書く
 export async function getRiceVol(user: User, foods: foodDetail[]) {
   let ideal_cal = user['目標栄養素']['カロリー'];
   const AllFoods = await getAllFoods();
@@ -107,11 +108,14 @@ export async function getRiceVol(user: User, foods: foodDetail[]) {
   const M_RICE = AllFoods.filter((food) => food['名前'] == 'ご飯（中）')[0];
   const S_RICE = AllFoods.filter((food) => food['名前'] == 'ご飯（小）')[0];
 
-  foods.forEach((food) => (ideal_cal -= food.カロリー));
+  // @ts-ignore
+  foods.forEach((food) => (ideal_cal -= food['カロリー']));
 
-  if (ideal_cal > L_RICE.カロリー) {
+  // @ts-ignore
+  if (ideal_cal > L_RICE['カロリー']) {
     return L_RICE;
-  } else if (ideal_cal > M_RICE.カロリー) {
+    //@ts-ignore
+  } else if (ideal_cal > M_RICE['カロリー']) {
     return M_RICE;
   } else {
     return S_RICE;

@@ -18,8 +18,6 @@ const MyPage2: NextPage = () => {
   const router = useRouter();
   const [food_index, setIndex] = useState<number>(0);
 
-  console.log(todayFood);
-
   async function onLoad() {
     setIsLoading(true);
     if (user?.email && firebaseUser) {

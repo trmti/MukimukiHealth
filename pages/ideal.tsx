@@ -1,19 +1,15 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 import { setGoals } from '../utils/set';
-import { ideals } from '../utils/testData';
-import { idealNames, ideal } from '../utils/types';
+import { idealNames } from '../utils/types';
 import { useAuthContext } from '../utils/AuthContext';
 
-import styles from '../styles/ideal.module.css';
+import Option from '../moleculs/ideal/index'
 
 const Ideal: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async (name: idealNames) => {
     console.log(name);
@@ -48,29 +44,13 @@ const Ideal: NextPage = () => {
         const calorie = idealWeight * 34;
 
         await setGoals(user.email, calorie, p, f, 0, c, 'モデル', 3);
+        router.push('/mypage');
       }
     }
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h1>体型は自分の甘さの表れ。君は何者になるのか。</h1>
-      <div className={styles.idealWrapper}>
-        {ideals.map((ideal) => (
-          <div
-            key={ideal.id}
-            onClick={async () => {
-              await onClick(ideal.name);
-              router.push('/mypage');
-            }}
-            className={styles.image}
-          >
-            <Image src={ideal.url} alt={ideal.name} width={360} height={360} />
-            <h1>{ideal.name}</h1>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Option onClick={onClick}/>
   );
 };
 

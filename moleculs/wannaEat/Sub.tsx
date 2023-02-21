@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
+import { useState } from 'react';
 import ImageWithText from '../../atoms/ImageWithText';
 import styles from './sub.module.css';
+import Modal from '../../atoms/Modal';
 
 import { foodDetail } from '../../utils/types';
 
@@ -11,6 +12,9 @@ type Props = {
 };
 
 const Sub: NextPage<Props> = ({ sub, onClick }) => {
+  const [selectedFoods, setSelectedFoods] = useState<foodDetail>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
   return (
     <div className={styles.wrapper}>
       <p>
@@ -25,13 +29,30 @@ const Sub: NextPage<Props> = ({ sub, onClick }) => {
         {sub.map((detail, index) => (
           <div
             key={index}
-            onClick={() => onClick(detail)}
+            onClick={() => {
+              setSelectedFoods(detail);
+              setModalVisible(true);
+            }}
             className={styles.imageWrapper}
           >
             <ImageWithText food={detail} />
           </div>
         ))}
       </div>
+      {modalVisible ? (
+        <Modal
+          food={selectedFoods}
+          onClickOk={() => {
+            if (selectedFoods) onClick(selectedFoods);
+            setModalVisible(false);
+          }}
+          onClickCancel={() => {
+            setModalVisible(false);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

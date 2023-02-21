@@ -37,11 +37,11 @@ const Select: NextPage<Props> = ({ selected = [] }) => {
           </div>
         );
       })}
-      <div>
-        <p>カロリー: {calorie}</p>
-        <p>タンパク質: {protein}</p>
-        <p>脂質: {lipid}</p>
-        <p>炭水化物: {carbohydrate}</p>
+      <div className={styles.nutritions}>
+        <p>カロリー: {calorie}kcal</p>
+        <p>タンパク質: {protein}g</p>
+        <p>脂質: {lipid}g</p>
+        <p>炭水化物: {carbohydrate}g</p>
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 .wrapper {
+  position: relative;
   text-align: center;
   width: 100%;
   margin-top: 30px;
+  min-height: 95vh;
 }
 
 .wrapper2 {
@@ -11,5 +13,16 @@
 .wrapper img {
   border-radius: 30px;
   aspect-ratio: 1/1;
+  object-fit: cover;
   width: 60%;
+}
+
+.nutritions {
+  position: absolute;
+  right: 30%;
+  bottom: 0;
+}
+
+.nutritions p {
+  border-bottom: 1px solid #000;
 }

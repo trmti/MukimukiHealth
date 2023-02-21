@@ -1,26 +1,19 @@
 import type { NextPage } from 'next';
 import ImageWithText from '../../atoms/ImageWithText';
 import { foodDetail } from '../../utils/types';
-import styles from './soup.module.css';
+import styles from './rice.module.css';
 
 type Props = {
-  soup: foodDetail[];
+  rice: foodDetail[];
   onClick: (detail: foodDetail) => Promise<void>;
 };
 
-const Home: NextPage<Props> = ({ soup, onClick }) => {
+const Home: NextPage<Props> = ({ rice, onClick }) => {
   return (
     <div className={styles.wrapper}>
-      <p>
-        理想体型に基づく摂取目標栄養素料をもとに
-        <br />
-        こちらの汁物をおすすめします
-      </p>
-      <p className={styles.text}>
-        次は<span>汁物</span>から選ぶ
-      </p>
+      <p>今日のあなたにピッタリのご飯の量はこちら</p>
       <div className={styles.foodWrapper}>
-        {soup.map((detail, index) => (
+        {rice.map((detail, index) => (
           <div
             key={index}
             onClick={() => onClick(detail)}

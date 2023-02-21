@@ -3,14 +3,15 @@ import styles from './index.module.css';
 
 type Props = {
   text: string;
+  text2?: string;
 };
 
-const Home: NextPage<Props> = ({ text }) => {
+const Home: NextPage<Props> = ({ text, text2 }) => {
   return (
     <div className={styles.header}>
       <p>{text}</p>
       <div className={styles.textWrapper}>
-        <h1 className={styles.text}>今日は何の気分？</h1>
+        <h1 className={styles.text}>{text2}</h1>
       </div>
     </div>
   );

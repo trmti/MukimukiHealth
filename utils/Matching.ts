@@ -1,6 +1,5 @@
 import { food } from "./types";
 import "./testData";
-import { pokucaree, rikishiIdeal } from "./testData";
 
 const Matching = (human: food, ryouri: food) => {
   const keys: string[] = Object.keys(ryouri);

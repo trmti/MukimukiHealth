@@ -1,4 +1,4 @@
-Feb 21, 2023 12:16:09 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+Feb 21, 2023 2:59:12 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
 INFO: Started WebSocket server on ws://127.0.0.1:9150
 API endpoint: http://127.0.0.1:8081
 If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
@@ -7,78 +7,55 @@ If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment
 
 Dev App Server is now running.
 
-Feb 21, 2023 12:16:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:16:29 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:16:30 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:20 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:21 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:21 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:27 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:21 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:07:27 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:21 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:08:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:22 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:22 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:51 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:52 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:52 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:17:52 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:18:07 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:18:22 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:18:22 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+Feb 21, 2023 3:08:21 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
 INFO: channel closed
-Feb 21, 2023 12:18:52 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:08:21 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:18:52 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+Feb 21, 2023 3:08:21 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreWriteHandler onClose
 INFO: channel closed
-Feb 21, 2023 12:20:05 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Feb 21, 2023 3:08:27 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:05 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:05 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:07 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:15 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:16 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:20:16 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:21:16 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:21:16 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected non-HTTP/2 connection.
-Feb 21, 2023 12:21:16 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+Feb 21, 2023 3:08:27 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
 INFO: channel closed
-*** shutting down gRPC server since JVM is shutting down
-*** server shut down
-230221 00:37:18.701:I 1 [main] [com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer.stop:80] Stopping WebSocket server...
+Feb 21, 2023 3:37:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:37:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:37:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:37:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:37:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:38:07 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Feb 21, 2023 3:38:07 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed

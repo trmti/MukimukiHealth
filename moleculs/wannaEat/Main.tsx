@@ -40,6 +40,7 @@ const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
     return (
       <>
         <div className={styles.wrapper}>
+          {modalVisible ? <div className={styles.filter}></div> : <></>}
           <div className={styles.contentWrapper}>
             <h1 className={styles.text}>
               まずは<span>メイン</span>から選ぶ

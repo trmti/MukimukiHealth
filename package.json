@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "firebase": "^9.17.1",
-    "firebase-tools": "^11.23.1",
+    "firebase-tools": "^9.23.3",
     "next": "13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "18.13.0",

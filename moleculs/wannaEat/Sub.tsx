@@ -8,13 +8,13 @@ import { foodDetail } from '../../utils/types';
 
 type Props = {
   sub: foodDetail[];
+  isLoading: boolean;
   onClick: (detail: foodDetail) => void;
 };
 
 const Sub: NextPage<Props> = ({ sub, onClick }) => {
   const [selectedFoods, setSelectedFoods] = useState<foodDetail>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
   return (
     <div className={styles.wrapper}>
       <p>

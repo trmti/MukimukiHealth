@@ -5,4 +5,10 @@
   font-size: 40px;
   color: white;
   margin-bottom: 80px;
+  box-shadow: 10px 10px 24px -10px rgba(0, 0, 0, 0.8);
+  border: none;
+}
+
+.button:hover {
+  border: 3px solid #000;
 }

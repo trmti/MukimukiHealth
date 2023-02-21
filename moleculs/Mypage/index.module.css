@@ -51,8 +51,9 @@
   height: 60px;
   width: 310px;
   font-size: 30px;
-  margin-left: 40%;
-  margin-bottom: 5%;
+  position: fixed;
+  left: 40%;
+  bottom: 50px;
 }
 
 .tables {

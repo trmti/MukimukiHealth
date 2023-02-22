@@ -5,7 +5,7 @@ const Logo: NextPage<{}> = ({ }) => {
     return (
         <div className={styles.wrapper}>
             <h1>ムキムキヘルス</h1>
-            <img src="https://i.imgur.com/rXa2ozA.png" alt="" />
+            <img src="logo2.png" alt="logo" />
         </div>
     );
 };

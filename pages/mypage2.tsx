@@ -14,7 +14,7 @@ const MyPage2: NextPage = () => {
   const { user, firebaseUser } = useAuthContext();
 
   const [todayFood, setTodayFood] = useState<detailWithDate>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   async function onLoad() {
@@ -39,8 +39,12 @@ const MyPage2: NextPage = () => {
     onLoad();
   }, [firebaseUser]);
 
-  if (todayFood != undefined && !isLoading) {
-    return <Mypage2Temp todayFood={todayFood} onClick={onClick} />;
+  if (!isLoading) {
+    if (todayFood != undefined) {
+      return <Mypage2Temp todayFood={todayFood} onClick={onClick} />;
+    } else {
+      return <></>
+    }
   } else {
     return <Loading />;
   }

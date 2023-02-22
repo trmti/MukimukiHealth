@@ -6,5 +6,12 @@
 }
 
 .wrapper h1 {
+    margin-top: 10vh;
     font-size: 3rem;
+}
+
+.wrapper img {
+    margin-top: 5vh;
+    width: 250px;
+    height: 250px;
 }

@@ -3,20 +3,23 @@ import { useState } from 'react';
 import ImageWithText from '../../atoms/ImageWithText';
 import styles from './sub.module.css';
 import Modal from '../../atoms/Modal';
+import Filter from '../../atoms/Filter';
 
 import { foodDetail } from '../../utils/types';
 
 type Props = {
   sub: foodDetail[];
+  isLoading: boolean;
   onClick: (detail: foodDetail) => void;
 };
 
 const Sub: NextPage<Props> = ({ sub, onClick }) => {
   const [selectedFoods, setSelectedFoods] = useState<foodDetail>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
   return (
     <div className={styles.wrapper}>
+      {modalVisible ? <Filter /> : <></>}
+
       <p>
         理想体型に基づく摂取目標栄養素料をもとに
         <br />

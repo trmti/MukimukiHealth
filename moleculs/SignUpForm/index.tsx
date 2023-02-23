@@ -53,7 +53,7 @@ const Form: NextPage<Props> = ({ onSubmit }) => {
       />
       <Link
         href="/login"
-        style={{ color: '#2F87D8', marginBottom: '50px', display: 'block' }}
+        style={{ color: '#2F87D8', margin: '15px auto 5px', display: 'block' }}
       >
         ログインはこちら
       </Link>

@@ -9,7 +9,6 @@ import { useAuthContext } from '../utils/AuthContext';
 import { app } from '../utils/firebase';
 import Loading from '../atoms/Loading';
 import Logo from '../atoms/Logo';
-import Signup from './signup';
 
 const Login: NextPage = () => {
   const router = useRouter();

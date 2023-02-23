@@ -4,6 +4,7 @@ import { foodDetail } from '../../utils/types';
 import ImageWithText from '../../atoms/ImageWithText';
 import Array from '../../atoms/Array';
 import Modal from '../../atoms/Modal';
+import Filter from '../../atoms/Filter';
 
 import styles from './main.module.css';
 import Loading from '../../atoms/Loading';
@@ -40,6 +41,7 @@ const Main: NextPage<Props> = ({ isLoading, main, onClick }) => {
     return (
       <>
         <div className={styles.wrapper}>
+          {modalVisible ? <Filter /> : <></>}
           <div className={styles.contentWrapper}>
             <h1 className={styles.text}>
               まずは<span>メイン</span>から選ぶ

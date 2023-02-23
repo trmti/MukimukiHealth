@@ -9,6 +9,7 @@
   display: inline-block;
   flex-basis: 80%;
 }
+
 .btnWrapper {
   text-align: right;
 }
@@ -26,4 +27,16 @@
   text-align: center;
   font-weight: normal;
   font-size: 24px;
+}
+
+.leftContent>button {
+  display: block;
+  margin: 20px auto;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(48, 47, 47);
+  border-radius: 20px;
 }

@@ -9,11 +9,13 @@ const Array: NextPage<Props> = ({ rotate = 0, onClick }) => {
   return (
     <div className={styles.wrapper} onClick={onClick}>
       <Image
-        src="/houkou.png"
+        src="/forward.png"
         width={300}
         height={300}
-        alt=""
-        style={{ transform: `rotate(${rotate}deg)` }}
+        alt="もっと見る"
+        style={{
+          transform: `rotate(${rotate}deg)`
+        }}
       />
       <p>もっと見る</p>
     </div>

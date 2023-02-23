@@ -6,7 +6,8 @@
 .text {
   letter-spacing: 8px;
 }
-.text > span {
+
+.text>span {
   font-size: 48px;
   font-weight: bold;
 }

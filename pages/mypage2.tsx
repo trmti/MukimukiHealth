@@ -7,7 +7,7 @@ import { getTodayFood } from '../utils/get';
 import { db } from '../utils/firebase';
 import { newData } from '../utils/get';
 import { detailWithDate, foodDetail, User } from '../utils/types';
-import { deleteTodayFood } from '../utils/set';
+import { deleteTodayFood, setFoodRecord } from '../utils/set';
 import { useAuthContext } from '../utils/AuthContext';
 
 import Loading from '../atoms/Loading';

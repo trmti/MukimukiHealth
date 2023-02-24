@@ -21,7 +21,7 @@ const Sub: NextPage<Props> = ({ sub, onClick }) => {
       {modalVisible ? <Filter /> : <></>}
 
       <p>
-        理想体型に基づく摂取目標栄養素料をもとに
+        理想体型に基づく摂取目標栄養素量をもとに
         <br />
         こちらの副菜をおすすめします
       </p>

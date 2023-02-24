@@ -20,7 +20,7 @@ const Home: NextPage<Props> = ({ soup, onClick }) => {
       {modalVisible ? <Filter /> : <></>}
 
       <p>
-        理想体型に基づく摂取目標栄養素料をもとに
+        理想体型に基づく摂取目標栄養素量をもとに
         <br />
         こちらの汁物をおすすめします
       </p>

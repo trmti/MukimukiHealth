@@ -7,10 +7,12 @@ import {
 } from 'firebase/firestore';
 import { UserType } from './AuthContext';
 import { db } from './firebase';
-import { idealNames, foodDetail, User } from './types';
+import { idealNames, foodDetail, User, detailWithDate } from './types';
 
 export async function createNewUser(email: string) {
-  await setDoc(doc(db, 'User', email), {});
+  await setDoc(doc(db, 'User', email), {
+    目標栄養素: { カロリー: 0, タンパク質: 0, 脂質: 0, 糖質: 0, 炭水化物: 0 },
+  });
 }
 
 export async function deleteTodayFood(userId: string) {
@@ -20,15 +22,15 @@ export async function deleteTodayFood(userId: string) {
   });
 }
 
-export async function setFoodRecord(user: User, userId: string) {
+export async function setFoodRecord(food: detailWithDate, userId: string) {
   const ref = doc(db, 'User', userId);
-  console.log(user);
+  const set = food['ご飯'].map((f) => f['名前']);
 
-  const gohan = user['次のご飯']['ご飯'];
+  console.log('set', set);
   await updateDoc(ref, {
     食事履歴: arrayUnion({
       日付: new Date(Date.now()),
-      食べたもの: [...gohan],
+      食べたもの: [...set],
     }),
   });
 }

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import ImageWithText from '../../atoms/ImageWithText';
-import { foodDetail } from '../../utils/types';
+import { foodDetail, detailWithIsExceed } from '../../utils/types';
 import styles from './soup.module.css';
 import Modal from '../../atoms/Modal';
 import Filter from '../../atoms/Filter';

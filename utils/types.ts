@@ -74,6 +74,11 @@ export type detailWithDate = {
   ご飯: foodDetail[];
 };
 
+export type detailWithIsExceed = {
+  exceed: number[];
+  food: foodDetail;
+};
+
 export type wannaEat = {
   id: number;
   name: string;

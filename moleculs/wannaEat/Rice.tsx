@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import ImageWithText from '../../atoms/ImageWithText';
-import { foodDetail } from '../../utils/types';
+import { foodDetail, detailWithIsExceed } from '../../utils/types';
 import styles from './rice.module.css';
 
 type Props = {

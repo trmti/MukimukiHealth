@@ -8,6 +8,7 @@ import {
   record,
   foodTypes,
   nutritionTypes,
+  detailWithIsExceed,
 } from './types';
 
 export async function getUser(userId: string): Promise<User> {
@@ -46,7 +47,10 @@ function getDiff(a: number, b: number): number {
   }
 }
 
-export async function getFoodWithType(type: foodTypes): Promise<foodDetail[]> {
+export async function getFoodWithType(
+  user: User,
+  type: foodTypes
+): Promise<foodDetail[]> {
   const allFood = await getAllFoods();
   const res = allFood.filter((food) => food['分類'] === type);
   return res;
@@ -91,7 +95,7 @@ export async function getSubFoodWithSort(
   );
 
   const sortBy = nutritionCandidate[maxIndex];
-  const filteredFood = await getFoodWithType(type);
+  const filteredFood = await getFoodWithType(user, type);
   const res = filteredFood
     //@ts-ignore
     .sort((a, b) => a[sortBy] - b[sortBy])

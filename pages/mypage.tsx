@@ -5,9 +5,10 @@ import { getFoodRecords } from '../utils/get';
 import { record } from '../utils/types';
 import MypageTemp from '../moleculs/Mypage';
 import { useAuthContext } from '../utils/AuthContext';
+import { ideals } from '../utils/testData';
 
 const MyPage: NextPage = () => {
-  const { user } = useAuthContext();
+  const { user, firebaseUser } = useAuthContext();
   const router = useRouter();
   const [foodRecords, setFoodRecords] = useState<record[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,6 +34,23 @@ const MyPage: NextPage = () => {
         isLoading={isLoading}
         foodRecords={foodRecords}
         onClick={onClick}
+        src={(() => {
+          if (firebaseUser) {
+            const ideal = firebaseUser['理想体型'];
+
+            if (ideal === '力士') {
+              return ideals[0].url;
+            } else if (ideal === 'ガチムチ') {
+              return ideals[1].url;
+            } else if (ideal === '普通') {
+              return ideals[2].url;
+            } else {
+              return ideals[3].url;
+            }
+          } else {
+            return '';
+          }
+        })()}
       />
     </>
   );

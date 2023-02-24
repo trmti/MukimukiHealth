@@ -41,7 +41,7 @@ const Signup: NextPage = () => {
       if (res) {
         alert('登録!');
         await createNewUser(email);
-        router.push('/mypage');
+        router.push('/bmi');
       }
     }
     setIsLoading(false);

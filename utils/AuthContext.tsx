@@ -64,17 +64,17 @@ export const AuthProvider: NextPage<AuthProps> = ({ children }) => {
     };
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (firebaseUser && !isAvailableForViewing) {
-        const res = await getTodayFood(firebaseUser);
-        if (user && res) {
-          alert('今日のご飯のページに移動します');
-          router.push('/mypage2');
-        }
-      }
-    })();
-  }, [user]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (firebaseUser && !isAvailableForViewing) {
+  //       const res = await getTodayFood(firebaseUser);
+  //       if (user && res) {
+  //         alert('今日のご飯のページに移動します');
+  //         router.push('/mypage2');
+  //       }
+  //     }
+  //   })();
+  // }, [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

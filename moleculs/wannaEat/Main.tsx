@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useState, useEffect } from 'react';
-import { foodDetail } from '../../utils/types';
+import { foodDetail, detailWithIsExceed } from '../../utils/types';
 import ImageWithText from '../../atoms/ImageWithText';
 import Array from '../../atoms/Array';
 import Modal from '../../atoms/Modal';

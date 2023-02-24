@@ -5,7 +5,7 @@ import styles from './sub.module.css';
 import Modal from '../../atoms/Modal';
 import Filter from '../../atoms/Filter';
 
-import { foodDetail } from '../../utils/types';
+import { foodDetail, detailWithIsExceed } from '../../utils/types';
 
 type Props = {
   sub: foodDetail[];

@@ -8,6 +8,7 @@ import Button from '../../atoms/Button';
 import Header from '../../atoms/Header';
 import ImageWithText from '../../atoms/ImageWithText';
 import styles from './index.module.css';
+import Loading from '../../atoms/Loading';
 
 type Props = {
   todayFood: detailWithDate;
@@ -49,24 +50,27 @@ const Mypage2: NextPage<Props> = ({ todayFood, onClick }) => {
         text={`${date[0]}/${date[1]}/${date[2].split('T')[0]}　${duration}飯`}
         text2="今日の食事メニューはこちら！"
       />
-      <div className={styles.foodsWrapper}>
-        {todayFood['ご飯'].map((food) => (
-          <div className={styles.foodWrapper}>
-            <ImageWithText food={food} />
-          </div>
-        ))}
-      </div>
-      <div className={styles.energies}>
-        <p>エネルギー: {calorie}kcal</p>
-        <p>タンパク質: {protein}g</p>
-        <p>脂質: {lipid}g</p>
-        <p>炭水化物: {carbohydrate}g</p>
-      </div>
-      <div className={styles.btnWrapper}>
-        <Button text="食べた！" color="#6F6F6F" onClick={onClick} />
+      <div>
+        <div className={styles.foodsWrapper}>
+          {todayFood['ご飯'].map((food, index) => (
+            <div className={styles.foodWrapper} key={index}>
+              <ImageWithText food={food} />
+            </div>
+          ))}
+        </div>
+        <div className={styles.energies}>
+          <p>エネルギー: {calorie}kcal</p>
+          <p>タンパク質: {protein}g</p>
+          <p>脂質: {lipid}g</p>
+          <p>炭水化物: {carbohydrate}g</p>
+        </div>
+        <div className={styles.btnWrapper}>
+          <Button text="食べた！" color="#6F6F6F" onClick={onClick} />
+        </div>
       </div>
     </>
   );
 };
+
 
 export default Mypage2;

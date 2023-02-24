@@ -1,6 +1,6 @@
-import type { NextPage } from 'next';
-import { foodDetail } from '../../utils/types';
-import styles from './index.module.css';
+import type { NextPage } from "next";
+import { foodDetail } from "../../utils/types";
+import styles from "./index.module.css";
 
 type Props = {
   food?: foodDetail;
@@ -15,12 +15,12 @@ const Modal: NextPage<Props> = ({ food, onClickOk, onClickCancel }) => {
         <p className={styles.title}>これを選択していいですか？</p>
         <div className={styles.image}>
           <div className={styles.nutritions}>
-            <p>エネルギー: {food['カロリー']}kcal</p>
-            <p>タンパク質: {food['タンパク質']}</p>
-            <p>脂質: {food['脂質']}</p>
-            <p>炭水化物: {food['炭水化物']}</p>
+            <p>エネルギー: {food["カロリー"]}kcal</p>
+            <p>タンパク質: {food["タンパク質"]}g</p>
+            <p>脂質: {food["脂質"]}g</p>
+            <p>炭水化物: {food["炭水化物"]}g</p>
           </div>
-          <img src={food['URL']} />
+          <img src={food["URL"]} />
         </div>
         <button onClick={onClickOk}>はい</button>
         <button onClick={onClickCancel}>いいえ</button>

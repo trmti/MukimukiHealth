@@ -1,8 +1,9 @@
-import type { NextPage } from 'next';
-import { record } from '../../utils/types';
-import Loading from '../../atoms/Loading';
-import styles from './index.module.css';
-import { getSum } from '../../utils/utilFuncs';
+import type { NextPage } from "next";
+import { record } from "../../utils/types";
+import Loading from "../../atoms/Loading";
+import styles from "./index.module.css";
+import { getSum } from "../../utils/utilFuncs";
+import Logout from "../../pages/logout";
 
 type Props = {
   isLoading: boolean;
@@ -13,9 +14,11 @@ type Props = {
 const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
   return (
     <>
-      <div>
+      <div className={styles.top}>
         <h1 className={styles.mypage}>マイページ</h1>
-        <div></div>
+        <div className={styles.logoutbtn}>
+          <Logout />
+        </div>
       </div>
 
       {!isLoading ? (
@@ -26,19 +29,19 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
                 <h2 className={styles.anatanosyokuji}>食事履歴</h2>
                 {foodRecords.map((foodRecord, index) => {
                   const energy: number = Math.floor(
-                    getSum(foodRecord['食べたもの'], 'カロリー')
+                    getSum(foodRecord["食べたもの"], "カロリー")
                   );
                   const tannpakusitu: number = Math.floor(
-                    getSum(foodRecord['食べたもの'], 'タンパク質')
+                    getSum(foodRecord["食べたもの"], "タンパク質")
                   );
                   const sisitu: number = Math.floor(
-                    getSum(foodRecord['食べたもの'], '脂質')
+                    getSum(foodRecord["食べたもの"], "脂質")
                   );
                   const tanpakusitu: number = Math.floor(
-                    getSum(foodRecord['食べたもの'], '炭水化物')
+                    getSum(foodRecord["食べたもの"], "炭水化物")
                   );
-                  const url = foodRecord['食べたもの'].find(
-                    (detail) => detail['分類'] == 'メイン'
+                  const url = foodRecord["食べたもの"].find(
+                    (detail) => detail["分類"] == "メイン"
                   );
                   if (url) {
                     return (
@@ -47,20 +50,21 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick }) => {
                           <div className={styles.date}>
                             <p>
                               {
-                                foodRecord['日付']
+                                foodRecord["日付"]
                                   .toDate()
-                                  .toLocaleString('ja-JP')
-                                  .split(' ')[0]
+                                  .toLocaleString("ja-JP")
+                                  .split(" ")[0]
                               }
                             </p>
                           </div>
 
                           <div className={styles.ryouri_flex}>
-                            {foodRecord['食べたもの'].map((detail, index) => {
+                            {foodRecord["食べたもの"].map((detail, index) => {
                               return (
                                 <div key={index} className={styles.eachFood}>
                                   <img
-                                    src={detail['URL']}
+                                    className={styles.image}
+                                    src={detail["URL"]}
                                     width={100}
                                     height={100}
                                   />

@@ -13,6 +13,8 @@ type Props = {
 };
 
 const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick, src }) => {
+  // @ts-ignore
+  const displayFoods = foodRecords.sort((a, b) => b['日付'] - a['日付']);
   return (
     <>
       <div className={styles.top}>
@@ -24,11 +26,11 @@ const Mypage: NextPage<Props> = ({ isLoading, foodRecords, onClick, src }) => {
 
       {!isLoading ? (
         <div className={styles.wrapper}>
-          {foodRecords.length !== 0 ? (
+          {displayFoods.length !== 0 ? (
             <div className={styles.total_flex}>
               <div className={styles.record}>
                 <h2 className={styles.anatanosyokuji}>食事履歴</h2>
-                {foodRecords.map((foodRecord, index) => {
+                {displayFoods.map((foodRecord, index) => {
                   const energy: number = Math.floor(
                     getSum(foodRecord['食べたもの'], 'カロリー')
                   );

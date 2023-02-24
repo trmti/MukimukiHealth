@@ -1,13 +1,24 @@
 .mypage {
   margin-left: 2.5%;
   margin-top: 12px;
-  font-size: 40px;
+  font-size: 45px;
+}
+
+.top {
+  width: 100vw;
+  display: flex;
+}
+
+.logoutbtn {
+  margin-left: auto;
+  margin-right: 2.5%;
+  margin-top: 15px;
 }
 
 .anatanosyokuji {
   margin-left: 48%;
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 100;
 }
 
 .date {
@@ -18,8 +29,8 @@
 }
 
 .detail {
-  margin-top: 40px;
-  border-radius: 2%;
+  margin-top: 35px;
+  border-radius: 12px;
   margin-left: 7%;
   padding-top: 23px;
   width: 58vw;
@@ -54,12 +65,24 @@
   position: fixed;
   left: 40%;
   bottom: 50px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+  border: 2px solid black;
 }
 
 .tables {
-  font-weight: bold;
+  border-radius: 10px;
+  font-weight: 400;
   position: absolute;
   right: 0;
   margin-bottom: 20%;
   margin-right: 20px;
+}
+
+.image {
+  border-radius: 10px;
 }

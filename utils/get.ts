@@ -39,8 +39,9 @@ export async function getTodayFood(user: User): Promise<detailWithDate | null> {
   }
 }
 
-
-export async function getOnlyTodayFood(user: User): Promise<detailWithDate | null> {
+export async function getOnlyTodayFood(
+  user: User
+): Promise<detailWithDate | null> {
   if (user && user['次のご飯']) {
     const date = user['次のご飯']['日付'];
     const ids = user['次のご飯']['ご飯'].map((food) => food.id);
@@ -50,7 +51,6 @@ export async function getOnlyTodayFood(user: User): Promise<detailWithDate | nul
     return null;
   }
 }
-
 
 function getDiff(a: number, b: number): number {
   if (b !== 0 && a < b) {
@@ -160,12 +160,16 @@ export async function getFoodRecords(userId: string): Promise<record[]> {
     if (foodRecords) {
       await Promise.all(
         foodRecords.map(async (foodRecord) => {
-          const ids = foodRecord['食べたもの'].map(
-            // @ts-ignore
-            (food) => food.id) as string[];
-          const res = (await newData(ids, 'ご飯')) as foodDetail[];
-          const date = foodRecord['日付'] as firestore.Timestamp;
-          r.push({ 日付: date, 食べたもの: res });
+          const ids = foodRecord['食べたもの'].map((food) => {
+            console.log(food);
+            return food;
+          }) as string[];
+          console.log(ids);
+          if (ids) {
+            const res = (await newData(ids, 'ご飯')) as foodDetail[];
+            const date = foodRecord['日付'] as firestore.Timestamp;
+            r.push({ 日付: date, 食べたもの: res });
+          }
         })
       );
     }

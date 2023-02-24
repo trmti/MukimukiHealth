@@ -25,8 +25,10 @@ const MyPage2: NextPage = () => {
     if (user?.email && firebaseUser) {
       onSnapshot(doc(db, 'User', user.email), async (doc) => {
         const data = doc.data() as unknown as User;
+        console.log(data);
         if (data['次のご飯']) {
           const ids = data['次のご飯']['ご飯'].map((d) => d.id);
+          console.log(ids);
           const date = data['次のご飯']['日付'];
           const res = (await newData(ids, 'ご飯')) as foodDetail[];
           if (res) {
@@ -39,8 +41,11 @@ const MyPage2: NextPage = () => {
   }
 
   async function onClick() {
-    if (user?.email && firebaseUser) {
-      await setFoodRecord(firebaseUser, user.email);
+    if (user?.email && todayFood) {
+      await setFoodRecord(todayFood, user.email);
+      await new Promise((resolve, reject) => {
+        setTimeout(() => resolve(1), 500);
+      });
       await deleteTodayFood(user.email);
       router.push('/mypage');
     }

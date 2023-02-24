@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 
+import { getTodayFood } from '../utils/get';
 import { db } from '../utils/firebase';
 import { newData } from '../utils/get';
 import { detailWithDate, foodDetail, User } from '../utils/types';
@@ -38,7 +39,8 @@ const MyPage2: NextPage = () => {
   }
 
   async function onClick() {
-    if (user?.email) {
+    if (user?.email && firebaseUser) {
+      await setFoodRecord(firebaseUser, user.email);
       await deleteTodayFood(user.email);
       router.push('/mypage');
     }

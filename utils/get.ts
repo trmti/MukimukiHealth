@@ -163,7 +163,7 @@ export async function getFoodRecords(userId: string): Promise<record[]> {
           const ids = foodRecord['食べたもの'].map((food) => {
             console.log(food);
             return food;
-          }) as string[];
+          }) as unknown as string[];
           console.log(ids);
           if (ids) {
             const res = (await newData(ids, 'ご飯')) as foodDetail[];

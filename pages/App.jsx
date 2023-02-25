@@ -135,8 +135,8 @@ function App() {
         </button>
       </div>
       <div>
-        {excelData.map((d) => (
-          <div>{JSON.stringify(d)}</div>
+        {excelData.map((d, index) => (
+          <div key={index}>{JSON.stringify(d)}</div>
         ))}
       </div>
     </div>

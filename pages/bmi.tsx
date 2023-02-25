@@ -6,7 +6,7 @@ import { setUserData } from '../utils/set';
 import { useAuthContext } from '../utils/AuthContext';
 
 import Button from '../atoms/Button';
-import styles from '../styles/BMI.module.css';
+import styles from '../styles/bmi.module.css';
 
 const BMI: NextPage = () => {
   const { user } = useAuthContext();
@@ -25,9 +25,9 @@ const BMI: NextPage = () => {
   };
 
   useEffect(() => {
-    const bmi = weight / (height * height) * 10000;
-    setBMI((Math.round(bmi * 100)) / 100);
-  }, [height, weight])
+    const bmi = (weight / (height * height)) * 10000;
+    setBMI(Math.round(bmi * 100) / 100);
+  }, [height, weight]);
 
   return (
     <div className={styles.wrapper}>
@@ -69,8 +69,10 @@ const BMI: NextPage = () => {
         />
         <p>体脂肪率(%)</p> */}
       </div>
-      <button className={styles.button} onClick={onClick}>次に進む</button>
-    </div >
+      <button className={styles.button} onClick={onClick}>
+        次に進む
+      </button>
+    </div>
   );
 };
 
